@@ -1,159 +1,388 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>Brain Wave Quiz</title>
-
 <style>
-body{
-  font-family: Arial, sans-serif;
-  background:#f5f7fb;
-  padding:20px;
-  text-align:center;
-}
-.box{
-  background:#fff;
-  padding:20px;
-  max-width:600px;
-  margin:auto;
-  border-radius:12px;
-  box-shadow:0 0 10px rgba(0,0,0,.1);
-}
-.hidden{display:none;}
-button{
-  padding:10px 18px;
-  margin:5px;
-  border:none;
-  border-radius:8px;
-  background:#1a73e8;
-  color:white;
-}
-input,select{
-  padding:10px;
-  margin:5px;
-  width:95%;
-}
-.option{
-  display:block;
-  width:100%;
-}
+  body {
+    font-family: Arial, sans-serif;
+    background: #f5f7fb;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  .container {
+    width: 900px;
+    margin: 30px auto;
+    text-align: center;
+  }
+
+  .box {
+    background: #fff;
+    padding: 25px;
+    border-radius: 14px;
+    box-shadow: 0 0 20px rgba(0,0,0,.1);
+    margin-bottom: 20px;
+  }
+
+  button {
+    padding: 10px 18px;
+    margin: 5px;
+    border: none;
+    border-radius: 8px;
+    background: #1a73e8;
+    color: white;
+    cursor: pointer;
+  }
+
+  .option {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    text-align: left;
+  }
+
+  .timer {
+    font-size: 18px;
+    color: #333;
+    margin-bottom: 10px;
+  }
+
+  .circle {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 10px solid #1a73e8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    font-size: 30px;
+    font-weight: bold;
+    color: #1a73e8;
+  }
+
+  .nav {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+  }
+
+  input, select {
+    padding: 10px;
+    margin: 5px;
+    width: 95%;
+  }
+
+  .admin-btn {
+    background: #333;
+  }
+
+  /* Admin Dashboard */
+  .admin-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .admin-grid .box {
+    margin-bottom: 0;
+  }
+
+  .admin-list {
+    text-align: left;
+    max-height: 250px;
+    overflow-y: auto;
+  }
+
+  .admin-list div {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .admin-list button {
+    background: red;
+    margin-left: 10px;
+  }
 </style>
 </head>
-
 <body>
 
-<h1>🧠 Brain Wave Study Group 
-Online quiz </h1>
+<div class="container">
 
-<!-- STUDENT -->
-<div id="student" class="box">
-  <select id="subject"></select>
-  <button onclick="startQuiz()">Start quiz</button>
-</div>
+  <h1>🧠 Brain Wave Quiz</h1>
 
-<div id="quiz" class="box hidden">
-  <h3 id="q"></h3>
-  <div id="opts"></div>
-</div>
-
-<div id="result" class="box hidden">
-  <h2 id="score"></h2>
-  <button onclick="location.reload()">Retake</button>
-</div>
-
-<!-- ADMIN -->
-<div id="admin" class="box hidden">
-  <h2>Admin Upload</h2>
-  <input id="adminPass" placeholder="Admin password">
-  <button onclick="loginAdmin()">Enter</button>
-
-  <div id="adminPanel" class="hidden">
-    <input id="sub" placeholder="Subject">
-    <input id="ques" placeholder="Question">
-    <input id="a" placeholder="Option A">
-    <input id="b" placeholder="Option B">
-    <input id="c" placeholder="Option C">
-    <input id="d" placeholder="Option D">
-    <input id="ans" placeholder="Correct (A/B/C/D)">
-    <button onclick="saveQ()">Save Question</button>
+  <!-- STUDENT -->
+  <div id="studentBox" class="box">
+    <select id="subjectSelect">
+      <option value="">Select Subject</option>
+    </select>
+    <button onclick="startQuiz()">Start Exam</button>
+    <button class="admin-btn" onclick="showAdmin()">Admin</button>
   </div>
+
+  <div id="quizBox" class="box hidden">
+    <div class="timer">Time Left: <span id="timeLeft">10:00</span></div>
+    <h3 id="questionText"></h3>
+    <div id="optionsBox"></div>
+
+    <div class="nav">
+      <button onclick="prevQuestion()">Previous</button>
+      <button onclick="nextQuestion()">Next</button>
+    </div>
+
+    <div style="margin-top: 10px;">
+      <button onclick="finishQuiz()">Finish Quiz</button>
+    </div>
+  </div>
+
+  <div id="resultBox" class="box hidden">
+    <h2>Result</h2>
+    <div class="circle" id="scoreCircle">0%</div>
+    <p id="scoreText"></p>
+    <button onclick="location.reload()">Retake</button>
+  </div>
+
+  <!-- ADMIN -->
+  <div id="adminBox" class="box hidden">
+    <h2>Admin Panel</h2>
+    <input id="adminPass" placeholder="Enter Admin Password">
+    <button onclick="loginAdmin()">Enter</button>
+
+    <div id="adminPanel" class="hidden">
+      <div class="admin-grid">
+
+        <!-- Upload -->
+        <div class="box">
+          <h3>Upload Questions</h3>
+          <input id="subInput" placeholder="Subject (e.g. GST 111)">
+          <input id="quesInput" placeholder="Question">
+          <input id="aInput" placeholder="Option A">
+          <input id="bInput" placeholder="Option B">
+          <input id="cInput" placeholder="Option C">
+          <input id="dInput" placeholder="Option D">
+          <input id="ansInput" placeholder="Correct (A/B/C/D)">
+          <button onclick="saveQuestion()">Save Question</button>
+        </div>
+
+        <!-- Dashboard -->
+        <div class="box">
+          <h3>Dashboard</h3>
+          <p><b>Total Subjects:</b> <span id="subjectCount">0</span></p>
+          <p><b>Total Questions:</b> <span id="questionCount">0</span></p>
+
+          <h4>Subjects</h4>
+          <div class="admin-list" id="subjectList"></div>
+        </div>
+
+      </div>
+
+      <div style="margin-top: 20px;">
+        <button onclick="logoutAdmin()">Logout</button>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <script>
 const ADMIN_PASSWORD = "brainwave02026";
-let data = JSON.parse(localStorage.getItem("brainwave")) || {};
-let quiz=[], i=0, score=0;
+
+let quiz = [];
+let current = 0;
+let answers = {};
+let timer;
+let timeLeft = 600;
 
 function loadSubjects(){
-  let s = document.getElementById("subject");
-  s.innerHTML = "<option>Select Subject</option>";
-  Object.keys(data).forEach(k=>{
-    let o=document.createElement("option");
-    o.textContent=k; o.value=k;
-    s.appendChild(o);
-  });
-}
-loadSubjects();
+  let data = JSON.parse(localStorage.getItem("brainwave")) || {};
+  let subjectSelect = document.getElementById("subjectSelect");
+  let subjectList = document.getElementById("subjectList");
 
-if(location.hash === "#admin"){
-  document.getElementById("student").classList.add("hidden");
-  document.getElementById("admin").classList.remove("hidden");
+  subjectSelect.innerHTML = "<option value=''>Select Subject</option>";
+  subjectList.innerHTML = "";
+
+  let totalQ = 0;
+  Object.keys(data).forEach(subject => {
+    let opt1 = document.createElement("option");
+    opt1.value = subject;
+    opt1.textContent = subject;
+    subjectSelect.appendChild(opt1);
+
+    totalQ += data[subject].length;
+
+    // dashboard list
+    let div = document.createElement("div");
+    div.innerHTML = `<b>${subject}</b> - ${data[subject].length} questions
+      <button onclick="deleteSubject('${subject}')">Delete</button>`;
+    subjectList.appendChild(div);
+  });
+
+  document.getElementById("subjectCount").innerText = Object.keys(data).length;
+  document.getElementById("questionCount").innerText = totalQ;
+}
+
+function showAdmin(){
+  document.getElementById("studentBox").classList.add("hidden");
+  document.getElementById("adminBox").classList.remove("hidden");
 }
 
 function loginAdmin(){
-  if(adminPass.value === ADMIN_PASSWORD){
-    adminPanel.classList.remove("hidden");
-  } else alert("Wrong password");
+  if(document.getElementById("adminPass").value === ADMIN_PASSWORD){
+    document.getElementById("adminPanel").classList.remove("hidden");
+    loadSubjects();
+  } else {
+    alert("Wrong password");
+  }
 }
 
-function saveQ(){
-  if(!data[sub.value]) data[sub.value]=[];
-  data[sub.value].push({
-    q:ques.value,
-    o:[a.value,b.value,c.value,d.value],
-    a:ans.value.toUpperCase()
+function logoutAdmin(){
+  document.getElementById("adminPanel").classList.add("hidden");
+  document.getElementById("adminBox").classList.add("hidden");
+  document.getElementById("studentBox").classList.remove("hidden");
+}
+
+function saveQuestion(){
+  let sub = document.getElementById("subInput").value.trim();
+  let q = document.getElementById("quesInput").value.trim();
+  let a = document.getElementById("aInput").value.trim();
+  let b = document.getElementById("bInput").value.trim();
+  let c = document.getElementById("cInput").value.trim();
+  let d = document.getElementById("dInput").value.trim();
+  let ans = document.getElementById("ansInput").value.trim().toUpperCase();
+
+  if(!sub || !q || !a || !b || !c || !d || !["A","B","C","D"].includes(ans)){
+    return alert("Please fill all fields correctly");
+  }
+
+  let data = JSON.parse(localStorage.getItem("brainwave")) || {};
+  if(!data[sub]) data[sub] = [];
+
+  data[sub].push({
+    q: q,
+    o: [a,b,c,d],
+    a: ans
   });
-  localStorage.setItem("brainwave",JSON.stringify(data));
-  alert("Saved");
+
+  localStorage.setItem("brainwave", JSON.stringify(data));
+  alert("Question saved!");
+  loadSubjects();
+}
+
+function deleteSubject(sub){
+  let data = JSON.parse(localStorage.getItem("brainwave")) || {};
+  delete data[sub];
+  localStorage.setItem("brainwave", JSON.stringify(data));
   loadSubjects();
 }
 
 function startQuiz(){
-  quiz = data[subject.value];
-  if(!quiz) return alert("No questions");
-  student.classList.add("hidden");
-  quizBox();
+  let subject = document.getElementById("subjectSelect").value;
+  let data = JSON.parse(localStorage.getItem("brainwave")) || {};
+
+  if(!subject) return alert("Select a subject");
+  if(!data[subject] || data[subject].length === 0) return alert("No questions uploaded for this subject");
+
+  quiz = data[subject];
+  current = 0;
+  answers = {};
+  timeLeft = 600;
+
+  document.getElementById("studentBox").classList.add("hidden");
+  document.getElementById("quizBox").classList.remove("hidden");
+
+  showQuestion();
+  startTimer();
 }
 
-function quizBox(){
-  quiz = data[subject.value];
-  showQ();
-  quizDiv.classList.remove("hidden");
-}
+function showQuestion(){
+  let q = quiz[current];
+  document.getElementById("questionText").innerText = `Q${current+1}: ${q.q}`;
 
-function showQ(){
-  let qn = quiz[i];
-  q.innerText = qn.q;
-  opts.innerHTML="";
-  ["A","B","C","D"].forEach((l,n)=>{
-    let b=document.createElement("button");
-    b.className="option";
-    b.innerText=qn.o[n];
-    b.onclick=()=>{
-      if(l===qn.a) score++;
-      i++;
-      i<quiz.length ? showQ() : showResult();
+  let optionsBox = document.getElementById("optionsBox");
+  optionsBox.innerHTML = "";
+
+  ["A","B","C","D"].forEach((letter, idx) => {
+    let btn = document.createElement("button");
+    btn.className = "option";
+    btn.innerText = `${letter}. ${q.o[idx]}`;
+    btn.onclick = () => {
+      answers[current] = letter;
+      highlightAnswer();
     };
-    opts.appendChild(b);
+    optionsBox.appendChild(btn);
   });
+
+  highlightAnswer();
 }
 
-function showResult(){
-  quiz.classList.add("hidden");
-  result.classList.remove("hidden");
-  score.innerText = `Score: ${score}/${quiz.length}`;
+function highlightAnswer(){
+  let options = document.querySelectorAll(".option");
+  options.forEach(btn => {
+    btn.style.background = "#1a73e8";
+    btn.style.color = "white";
+  });
+
+  let selected = answers[current];
+  if(selected){
+    options.forEach(btn => {
+      if(btn.innerText.startsWith(selected + ".")){
+        btn.style.background = "#333";
+      }
+    });
+  }
 }
+
+function nextQuestion(){
+  if(current < quiz.length - 1){
+    current++;
+    showQuestion();
+  }
+}
+
+function prevQuestion(){
+  if(current > 0){
+    current--;
+    showQuestion();
+  }
+}
+
+function startTimer(){
+  timer = setInterval(() => {
+    timeLeft--;
+    let min = Math.floor(timeLeft / 60);
+    let sec = timeLeft % 60;
+    document.getElementById("timeLeft").innerText = `${min}:${sec < 10 ? '0'+sec : sec}`;
+
+    if(timeLeft <= 0){
+      clearInterval(timer);
+      finishQuiz();
+    }
+  }, 1000);
+}
+
+function finishQuiz(){
+  clearInterval(timer);
+
+  let score = 0;
+  quiz.forEach((q, idx) => {
+    if(answers[idx] === q.a) score++;
+  });
+
+  document.getElementById("quizBox").classList.add("hidden");
+  document.getElementById("resultBox").classList.remove("hidden");
+
+  let percent = Math.round((score / quiz.length) * 100);
+  document.getElementById("scoreCircle").innerText = percent + "%";
+  document.getElementById("scoreText").innerText = `You scored ${score} out of ${quiz.length}`;
+}
+
+loadSubjects();
 </script>
 
 </body>
-</html>
+      </html>
