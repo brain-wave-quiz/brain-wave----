@@ -1,388 +1,441 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Brain Wave Quiz</title>
 <style>
-  body {
+  :root{
+    --primary:#1a73e8;
+    --bg:#f4f6fb;
+    --card:#fff;
+    --text:#111;
+    --muted:#666;
+    --shadow:0 10px 30px rgba(0,0,0,0.08);
+    --radius:18px;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;
     font-family: Arial, sans-serif;
-    background: #f5f7fb;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+    background:var(--bg);
+    color:var(--text);
   }
-
-  .container {
-    width: 900px;
-    margin: 30px auto;
-    text-align: center;
+  .container{
+    max-width: 980px;
+    margin: 40px auto;
+    padding: 20px;
   }
-
-  .box {
-    background: #fff;
+  .card{
+    background:var(--card);
+    border-radius:var(--radius);
+    box-shadow:var(--shadow);
     padding: 25px;
-    border-radius: 14px;
-    box-shadow: 0 0 20px rgba(0,0,0,.1);
-    margin-bottom: 20px;
   }
-
-  button {
-    padding: 10px 18px;
-    margin: 5px;
-    border: none;
-    border-radius: 8px;
-    background: #1a73e8;
-    color: white;
-    cursor: pointer;
+  h1, h2{
+    margin:0 0 10px;
   }
-
-  .option {
-    display: block;
-    width: 100%;
-    margin-top: 10px;
-    text-align: left;
+  .center{
+    text-align:center;
   }
-
-  .timer {
-    font-size: 18px;
-    color: #333;
-    margin-bottom: 10px;
+  .subjects{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+    margin-top:20px;
   }
-
-  .circle {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    border: 10px solid #1a73e8;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
-    font-size: 30px;
-    font-weight: bold;
-    color: #1a73e8;
+  .subject-btn{
+    background:var(--primary);
+    color:#fff;
+    border:none;
+    padding:18px;
+    border-radius:14px;
+    font-size:16px;
+    cursor:pointer;
+    transition:transform .2s;
   }
-
-  .nav {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 15px;
+  .subject-btn:hover{transform:translateY(-3px)}
+  .btn{
+    background:var(--primary);
+    color:#fff;
+    border:none;
+    padding:12px 18px;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:16px;
   }
-
-  input, select {
-    padding: 10px;
-    margin: 5px;
-    width: 95%;
+  .btn-secondary{
+    background:#fff;
+    color:var(--primary);
+    border:2px solid var(--primary);
   }
-
-  .admin-btn {
-    background: #333;
+  .btn:disabled{
+    opacity:.6;
+    cursor:not-allowed;
   }
-
-  /* Admin Dashboard */
-  .admin-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
+  .quiz{
+    margin-top:20px;
   }
-
-  .admin-grid .box {
-    margin-bottom: 0;
+  .question{
+    font-size:18px;
+    font-weight:600;
+    margin-bottom:14px;
   }
-
-  .admin-list {
-    text-align: left;
-    max-height: 250px;
-    overflow-y: auto;
+  .options{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:12px;
   }
-
-  .admin-list div {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
+  .option{
+    border:2px solid #ddd;
+    border-radius:14px;
+    padding:14px;
+    cursor:pointer;
+    transition:0.2s;
   }
-
-  .admin-list button {
-    background: red;
-    margin-left: 10px;
+  .option:hover{
+    border-color:var(--primary);
+  }
+  .option.selected{
+    background:rgba(26,115,232,0.12);
+    border-color:var(--primary);
+  }
+  .footer{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:18px;
+  }
+  .timer{
+    font-weight:700;
+    color:var(--primary);
+  }
+  .result-circle{
+    width:160px;
+    height:160px;
+    border-radius:50%;
+    border:10px solid rgba(26,115,232,0.25);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:20px auto;
+    font-size:26px;
+    font-weight:700;
+  }
+  .muted{
+    color:var(--muted);
+  }
+  .hide{display:none;}
+  @media(max-width: 900px){
+    .subjects{grid-template-columns:repeat(2,1fr);}
+  }
+  @media(max-width: 600px){
+    .subjects{grid-template-columns:1fr;}
   }
 </style>
 </head>
 <body>
 
 <div class="container">
-
-  <h1>🧠 Brain Wave Quiz</h1>
-
-  <!-- STUDENT -->
-  <div id="studentBox" class="box">
-    <select id="subjectSelect">
-      <option value="">Select Subject</option>
-    </select>
-    <button onclick="startQuiz()">Start Exam</button>
-    <button class="admin-btn" onclick="showAdmin()">Admin</button>
-  </div>
-
-  <div id="quizBox" class="box hidden">
-    <div class="timer">Time Left: <span id="timeLeft">10:00</span></div>
-    <h3 id="questionText"></h3>
-    <div id="optionsBox"></div>
-
-    <div class="nav">
-      <button onclick="prevQuestion()">Previous</button>
-      <button onclick="nextQuestion()">Next</button>
+  <!-- SUBJECT SELECTION -->
+  <div id="home" class="card">
+    <div class="center">
+      <h1>Brain Wave Quiz</h1>
+      <p class="muted">Choose a subject to start the quiz</p>
     </div>
 
-    <div style="margin-top: 10px;">
-      <button onclick="finishQuiz()">Finish Quiz</button>
+    <div class="subjects">
+      <button class="subject-btn" onclick="startQuiz('English')">English</button>
+      <button class="subject-btn" onclick="startQuiz('Physics')">Physics</button>
+      <button class="subject-btn" onclick="startQuiz('Chemistry')">Chemistry</button>
+      <button class="subject-btn" onclick="startQuiz('Biology')">Biology</button>
+      <button class="subject-btn" onclick="startQuiz('Account')">Account</button>
+      <button class="subject-btn" onclick="startQuiz('Commerce')">Commerce</button>
+      <button class="subject-btn" onclick="startQuiz('Mathematics')">Mathematics</button>
+      <button class="subject-btn" onclick="startQuiz('Literature')">Literature</button>
+      <button class="subject-btn" onclick="startQuiz('Government')">Government</button>
     </div>
   </div>
 
-  <div id="resultBox" class="box hidden">
-    <h2>Result</h2>
-    <div class="circle" id="scoreCircle">0%</div>
-    <p id="scoreText"></p>
-    <button onclick="location.reload()">Retake</button>
-  </div>
-
-  <!-- ADMIN -->
-  <div id="adminBox" class="box hidden">
-    <h2>Admin Panel</h2>
-    <input id="adminPass" placeholder="Enter Admin Password">
-    <button onclick="loginAdmin()">Enter</button>
-
-    <div id="adminPanel" class="hidden">
-      <div class="admin-grid">
-
-        <!-- Upload -->
-        <div class="box">
-          <h3>Upload Questions</h3>
-          <input id="subInput" placeholder="Subject (e.g. GST 111)">
-          <input id="quesInput" placeholder="Question">
-          <input id="aInput" placeholder="Option A">
-          <input id="bInput" placeholder="Option B">
-          <input id="cInput" placeholder="Option C">
-          <input id="dInput" placeholder="Option D">
-          <input id="ansInput" placeholder="Correct (A/B/C/D)">
-          <button onclick="saveQuestion()">Save Question</button>
-        </div>
-
-        <!-- Dashboard -->
-        <div class="box">
-          <h3>Dashboard</h3>
-          <p><b>Total Subjects:</b> <span id="subjectCount">0</span></p>
-          <p><b>Total Questions:</b> <span id="questionCount">0</span></p>
-
-          <h4>Subjects</h4>
-          <div class="admin-list" id="subjectList"></div>
-        </div>
-
+  <!-- QUIZ PAGE -->
+  <div id="quiz" class="card hide">
+    <div class="footer">
+      <div>
+        <h2 id="subjectTitle"></h2>
+        <p class="muted" id="progress"></p>
       </div>
+      <div class="timer" id="timer">10:00</div>
+    </div>
 
-      <div style="margin-top: 20px;">
-        <button onclick="logoutAdmin()">Logout</button>
-      </div>
+    <div class="quiz">
+      <div class="question" id="questionText"></div>
+      <div class="options" id="options"></div>
+    </div>
+
+    <div class="footer">
+      <button class="btn btn-secondary" id="prevBtn" onclick="prevQuestion()">Previous</button>
+      <button class="btn" id="nextBtn" onclick="nextQuestion()">Next</button>
     </div>
   </div>
 
+  <!-- RESULT PAGE -->
+  <div id="result" class="card hide">
+    <div class="center">
+      <h1>Result</h1>
+      <div class="result-circle" id="scoreCircle">0%</div>
+      <p class="muted" id="scoreText"></p>
+      <button class="btn" onclick="goHome()">Go Home</button>
+      <button class="btn btn-secondary" onclick="retake()">Retake Quiz</button>
+    </div>
+  </div>
 </div>
 
 <script>
-const ADMIN_PASSWORD = "brainwave02026";
+const QUESTIONS = {
+  "English": [
+    {
+      "q": "Choose the correct option that best completes the sentence:\n\nThe teacher, along with the students, _____ going to the conference.",
+      "o": ["is", "are", "were", "be"],
+      "a": "A"
+    },
+    {
+      "q": "Choose the correct option:\n\nNeither the manager nor the workers _____ willing to compromise.",
+      "o": ["is", "are", "was", "were"],
+      "a": "B"
+    },
+    {
+      "q": "Choose the correct option:\n\nIf I _____ you, I would not have made that mistake.",
+      "o": ["was", "were", "am", "be"],
+      "a": "B"
+    },
+    {
+      "q": "Choose the correct option:\n\nThe man, who _____ a millionaire, still lives in a small house.",
+      "o": ["is", "was", "being", "are"],
+      "a": "A"
+    },
+    {
+      "q": "Choose the correct option:\n\nI have not seen him _____ last week.",
+      "o": ["since", "for", "from", "ago"],
+      "a": "A"
+    },
+    {
+      "q": "Choose the correct option:\n\nThe opposite of 'mitigate' is:",
+      "o": ["aggravate", "alleviate", "reduce", "lessen"],
+      "a": "A"
+    },
+    {
+      "q": "Choose the correct spelling:",
+      "o": ["accommodation", "acommodation", "acommodation", "accomodation"],
+      "a": "A"
+    },
+    {
+      "q": "Choose the correct spelling:",
+      "o": ["conscience", "conscence", "consience", "consciense"],
+      "a": "A"
+    },
+    {
+      "q": "Choose the correct option:\n\nHe is the only student _____ passed the exam.",
+      "o": ["who", "which", "whom", "whose"],
+      "a": "A"
+    },
+    {
+      "q": "Choose the correct option:\n\nThe book, as well as the pen, _____ on the table.",
+      "o": ["is", "are", "were", "have"],
+      "a": "A"
+    },
+    {
+      "q": "Choose the correct option:\n\nI will call you _____ I arrive.",
+      "o": ["as soon as", "until", "unless", "because"],
+      "a": "A"
+    },
+    {
+      "q": "Choose the correct option:\n\nShe sings _____ than her sister.",
+      "o": ["good", "well", "better", "best"],
+      "a": "C"
+    },
+    {
+      "q": "The word 'export' is pronounced with stress on the:",
+      "o": ["first syllable", "second syllable", "third syllable", "fourth syllable"],
+      "a": "A"
+    },
+    {
+      "q": "The word 'record' as a noun is stressed on the:",
+      "o": ["first syllable", "second syllable", "third syllable", "fourth syllable"],
+      "a": "A"
+    },
+    {
+      "q": "The word 'present' as a verb is stressed on the:",
+      "o": ["first syllable", "second syllable", "third syllable", "fourth syllable"],
+      "a": "B"
+    },
+    {
+      "q": "Which of the following sentences is grammatically correct?",
+      "o": [
+        "He don't have any money.",
+        "He doesn't have any money.",
+        "He didn't has any money.",
+        "He not have any money."
+      ],
+      "a": "B"
+    },
+    {
+      "q": "The correct synonym of 'abundant' is:",
+      "o": ["scarce", "plentiful", "rare", "insufficient"],
+      "a": "B"
+    },
+    {
+      "q": "The correct antonym of 'opaque' is:",
+      "o": ["transparent", "dense", "thick", "dark"],
+      "a": "A"
+    },
+    {
+      "q": "The word 'psychology' is pronounced with stress on the:",
+      "o": ["first syllable", "second syllable", "third syllable", "fourth syllable"],
+      "a": "C"
+    },
+    {
+      "q": "Choose the correct meaning of 'alleviate'.",
+      "o": ["To increase", "To worsen", "To relieve", "To remove"],
+      "a": "C"
+    }
+  ],
+  "Physics": [],
+  "Chemistry": [],
+  "Biology": [],
+  "Account": [],
+  "Commerce": [],
+  "Mathematics": [],
+  "Literature": [],
+  "Government": []
+};
 
-let quiz = [];
-let current = 0;
+let currentSubject = null;
+let currentIndex = 0;
 let answers = {};
-let timer;
-let timeLeft = 600;
+let timerInterval;
+let timeLeft = 600; // 10 minutes
 
-function loadSubjects(){
-  let data = JSON.parse(localStorage.getItem("brainwave")) || {};
-  let subjectSelect = document.getElementById("subjectSelect");
-  let subjectList = document.getElementById("subjectList");
+function startQuiz(subject){
+  currentSubject = subject;
+  const questions = QUESTIONS[subject];
 
-  subjectSelect.innerHTML = "<option value=''>Select Subject</option>";
-  subjectList.innerHTML = "";
-
-  let totalQ = 0;
-  Object.keys(data).forEach(subject => {
-    let opt1 = document.createElement("option");
-    opt1.value = subject;
-    opt1.textContent = subject;
-    subjectSelect.appendChild(opt1);
-
-    totalQ += data[subject].length;
-
-    // dashboard list
-    let div = document.createElement("div");
-    div.innerHTML = `<b>${subject}</b> - ${data[subject].length} questions
-      <button onclick="deleteSubject('${subject}')">Delete</button>`;
-    subjectList.appendChild(div);
-  });
-
-  document.getElementById("subjectCount").innerText = Object.keys(data).length;
-  document.getElementById("questionCount").innerText = totalQ;
-}
-
-function showAdmin(){
-  document.getElementById("studentBox").classList.add("hidden");
-  document.getElementById("adminBox").classList.remove("hidden");
-}
-
-function loginAdmin(){
-  if(document.getElementById("adminPass").value === ADMIN_PASSWORD){
-    document.getElementById("adminPanel").classList.remove("hidden");
-    loadSubjects();
-  } else {
-    alert("Wrong password");
-  }
-}
-
-function logoutAdmin(){
-  document.getElementById("adminPanel").classList.add("hidden");
-  document.getElementById("adminBox").classList.add("hidden");
-  document.getElementById("studentBox").classList.remove("hidden");
-}
-
-function saveQuestion(){
-  let sub = document.getElementById("subInput").value.trim();
-  let q = document.getElementById("quesInput").value.trim();
-  let a = document.getElementById("aInput").value.trim();
-  let b = document.getElementById("bInput").value.trim();
-  let c = document.getElementById("cInput").value.trim();
-  let d = document.getElementById("dInput").value.trim();
-  let ans = document.getElementById("ansInput").value.trim().toUpperCase();
-
-  if(!sub || !q || !a || !b || !c || !d || !["A","B","C","D"].includes(ans)){
-    return alert("Please fill all fields correctly");
+  if(!questions || questions.length === 0){
+    alert("No question available for this subject at the moment.");
+    return;
   }
 
-  let data = JSON.parse(localStorage.getItem("brainwave")) || {};
-  if(!data[sub]) data[sub] = [];
+  document.getElementById('home').classList.add('hide');
+  document.getElementById('quiz').classList.remove('hide');
+  document.getElementById('result').classList.add('hide');
 
-  data[sub].push({
-    q: q,
-    o: [a,b,c,d],
-    a: ans
-  });
-
-  localStorage.setItem("brainwave", JSON.stringify(data));
-  alert("Question saved!");
-  loadSubjects();
-}
-
-function deleteSubject(sub){
-  let data = JSON.parse(localStorage.getItem("brainwave")) || {};
-  delete data[sub];
-  localStorage.setItem("brainwave", JSON.stringify(data));
-  loadSubjects();
-}
-
-function startQuiz(){
-  let subject = document.getElementById("subjectSelect").value;
-  let data = JSON.parse(localStorage.getItem("brainwave")) || {};
-
-  if(!subject) return alert("Select a subject");
-  if(!data[subject] || data[subject].length === 0) return alert("No questions uploaded for this subject");
-
-  quiz = data[subject];
-  current = 0;
+  currentIndex = 0;
   answers = {};
   timeLeft = 600;
 
-  document.getElementById("studentBox").classList.add("hidden");
-  document.getElementById("quizBox").classList.remove("hidden");
+  document.getElementById('subjectTitle').innerText = subject;
+  document.getElementById('progress').innerText = `Question 1 of ${questions.length}`;
 
-  showQuestion();
   startTimer();
-}
-
-function showQuestion(){
-  let q = quiz[current];
-  document.getElementById("questionText").innerText = `Q${current+1}: ${q.q}`;
-
-  let optionsBox = document.getElementById("optionsBox");
-  optionsBox.innerHTML = "";
-
-  ["A","B","C","D"].forEach((letter, idx) => {
-    let btn = document.createElement("button");
-    btn.className = "option";
-    btn.innerText = `${letter}. ${q.o[idx]}`;
-    btn.onclick = () => {
-      answers[current] = letter;
-      highlightAnswer();
-    };
-    optionsBox.appendChild(btn);
-  });
-
-  highlightAnswer();
-}
-
-function highlightAnswer(){
-  let options = document.querySelectorAll(".option");
-  options.forEach(btn => {
-    btn.style.background = "#1a73e8";
-    btn.style.color = "white";
-  });
-
-  let selected = answers[current];
-  if(selected){
-    options.forEach(btn => {
-      if(btn.innerText.startsWith(selected + ".")){
-        btn.style.background = "#333";
-      }
-    });
-  }
-}
-
-function nextQuestion(){
-  if(current < quiz.length - 1){
-    current++;
-    showQuestion();
-  }
-}
-
-function prevQuestion(){
-  if(current > 0){
-    current--;
-    showQuestion();
-  }
+  loadQuestion();
 }
 
 function startTimer(){
-  timer = setInterval(() => {
+  clearInterval(timerInterval);
+  timerInterval = setInterval(()=>{
     timeLeft--;
-    let min = Math.floor(timeLeft / 60);
-    let sec = timeLeft % 60;
-    document.getElementById("timeLeft").innerText = `${min}:${sec < 10 ? '0'+sec : sec}`;
+    const minutes = String(Math.floor(timeLeft/60)).padStart(2,'0');
+    const seconds = String(timeLeft%60).padStart(2,'0');
+    document.getElementById('timer').innerText = `${minutes}:${seconds}`;
 
     if(timeLeft <= 0){
-      clearInterval(timer);
+      clearInterval(timerInterval);
       finishQuiz();
     }
   }, 1000);
 }
 
-function finishQuiz(){
-  clearInterval(timer);
+function loadQuestion(){
+  const questions = QUESTIONS[currentSubject];
+  const q = questions[currentIndex];
 
-  let score = 0;
-  quiz.forEach((q, idx) => {
-    if(answers[idx] === q.a) score++;
+  document.getElementById('questionText').innerText = q.q;
+  document.getElementById('progress').innerText = `Question ${currentIndex+1} of ${questions.length}`;
+
+  const optionsDiv = document.getElementById('options');
+  optionsDiv.innerHTML = '';
+
+  q.o.forEach((opt, index)=>{
+    const letter = String.fromCharCode(65 + index);
+    const optionEl = document.createElement('div');
+    optionEl.className = 'option';
+    optionEl.innerText = `${letter}. ${opt}`;
+
+    if(answers[currentIndex] === letter){
+      optionEl.classList.add('selected');
+    }
+
+    optionEl.onclick = ()=>{
+      answers[currentIndex] = letter;
+      loadQuestion();
+    };
+
+    optionsDiv.appendChild(optionEl);
   });
 
-  document.getElementById("quizBox").classList.add("hidden");
-  document.getElementById("resultBox").classList.remove("hidden");
-
-  let percent = Math.round((score / quiz.length) * 100);
-  document.getElementById("scoreCircle").innerText = percent + "%";
-  document.getElementById("scoreText").innerText = `You scored ${score} out of ${quiz.length}`;
+  document.getElementById('prevBtn').disabled = currentIndex === 0;
+  document.getElementById('nextBtn').innerText = currentIndex === questions.length - 1 ? 'Submit' : 'Next';
 }
 
-loadSubjects();
+function prevQuestion(){
+  if(currentIndex > 0){
+    currentIndex--;
+    loadQuestion();
+  }
+}
+
+function nextQuestion(){
+  const questions = QUESTIONS[currentSubject];
+
+  if(currentIndex < questions.length - 1){
+    currentIndex++;
+    loadQuestion();
+  } else {
+    finishQuiz();
+  }
+}
+
+function finishQuiz(){
+  clearInterval(timerInterval);
+
+  const questions = QUESTIONS[currentSubject];
+  let score = 0;
+
+  questions.forEach((q, index)=>{
+    if(answers[index] === q.a){
+      score++;
+    }
+  });
+
+  const percent = Math.round((score / questions.length) * 100);
+
+  document.getElementById('quiz').classList.add('hide');
+  document.getElementById('result').classList.remove('hide');
+
+  document.getElementById('scoreCircle').innerText = `${percent}%`;
+  document.getElementById('scoreText').innerText = `You answered ${score} out of ${questions.length} correctly.`;
+}
+
+function goHome(){
+  document.getElementById('home').classList.remove('hide');
+  document.getElementById('quiz').classList.add('hide');
+  document.getElementById('result').classList.add('hide');
+  clearInterval(timerInterval);
+}
+
+function retake(){
+  startQuiz(currentSubject);
+}
 </script>
 
 </body>
-      </html>
+        </html>
