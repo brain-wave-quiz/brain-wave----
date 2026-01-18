@@ -506,14 +506,27 @@ function goHome(){
 
 function retake(){
   startQuiz(currentSubject);
-}
+  }
+  function showPage(pageId) {
+  // Hide all main sections
+  document.getElementById("home").classList.add("hide");
+  document.getElementById("namePage").classList.add("hide");
+  document.getElementById("subjectPage").classList.add("hide");
+  document.getElementById("quiz").classList.add("hide");
+  document.getElementById("result").classList.add("hide");
 
-function showPage(pageId) {
-  // Hide everything first
-  const allSections = [
-    "home", "namePage", "subjectPage", "quiz", "result",
-    "aboutPage", "contactPage", "privacyPage"
-  ];
+  // Hide other pages
+  document.getElementById("aboutPage").style.display = "none";
+  document.getElementById("contactPage").style.display = "none";
+  document.getElementById("privacyPage").style.display = "none";
+
+  // Show the selected page
+  if (pageId === "aboutPage" || pageId === "contactPage" || pageId === "privacyPage") {
+    document.getElementById(pageId).style.display = "block";
+  } else {
+    document.getElementById(pageId).classList.remove("hide");
+  }
+  }
 
   allSections.forEach(id => {
     document.getElementById(id).style.display = "none";
