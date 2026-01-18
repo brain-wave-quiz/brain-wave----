@@ -233,7 +233,7 @@
 <div id="namePage" class="card center hide">
   <h2>Enter Your Name</h2>
   <input type="text" id="studentName" placeholder="Your full name">
-  <button class="btn" onclick="showSubjects()">Continue</button>
+  <button class="btn" onclick="showPage('subjectPage')">Continue</button>
 </div>
 
 <!-- SUBJECT SELECTION -->
@@ -383,10 +383,9 @@ function showSubjects() {
   if (!studentName) {
     alert("Please enter your name");
     return;
-  }
-  hideAllPages();
-  document.getElementById("subjectPage").classList.remove("hide");
-}
+  
+  showPage('subjectPage');
+            }
 
 function startQuiz(subject){
   currentSubject = subject;
