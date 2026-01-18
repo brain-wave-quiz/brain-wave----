@@ -152,30 +152,41 @@
 <body>
 
 <div class="container">
-  <!-- SUBJECT SELECTION -->
-  <div id="home" class="card">
-    <div class="whatsapp">
+<!-- HOME -->
+<div id="home" class="card center">
+  <div class="whatsapp">
     <a href="https://whatsapp.com/channel/0029VbBcevAK5cDIAnKPEx2C" target="_blank">
       <span class="wa-icon">🟢</span> Follow our channel
     </a>
-    </div>
-    <div class="center">
-      <h1>Brain Wave Quiz</h1>
-      <p class="muted">Choose a subject to start the quiz</p>
-    </div>
-
-    <div class="subjects">
-      <button class="subject-btn" onclick="startQuiz('English')">English</button>
-      <button class="subject-btn" onclick="startQuiz('Physics')">Physics</button>
-      <button class="subject-btn" onclick="startQuiz('Chemistry')">Chemistry</button>
-      <button class="subject-btn" onclick="startQuiz('Biology')">Biology</button>
-      <button class="subject-btn" onclick="startQuiz('Account')">Account</button>
-      <button class="subject-btn" onclick="startQuiz('Commerce')">Commerce</button>
-      <button class="subject-btn" onclick="startQuiz('Mathematics')">Mathematics</button>
-      <button class="subject-btn" onclick="startQuiz('Literature')">Literature</button>
-      <button class="subject-btn" onclick="startQuiz('Government')">Government</button>
-    </div>
   </div>
+
+  <h1>Brain Wave Quiz</h1>
+  <p class="muted">Click Start Test to begin</p>
+  <button class="btn" onclick="showName()">Start Test</button>
+</div>
+
+<!-- NAME INPUT PAGE -->
+<div id="namePage" class="card center hide">
+  <h2>Enter Your Name</h2>
+  <input type="text" id="studentName" placeholder="Your full name">
+  <button class="btn" onclick="showSubjects()">Continue</button>
+</div>
+
+<!-- SUBJECT SELECTION -->
+<div id="subjectPage" class="card center hide">
+  <h2>Select Subject</h2>
+  <div class="subjects">
+    <button class="subject-btn" onclick="startQuiz('English')">English</button>
+    <button class="subject-btn" onclick="startQuiz('Physics')">Physics</button>
+    <button class="subject-btn" onclick="startQuiz('Chemistry')">Chemistry</button>
+    <button class="subject-btn" onclick="startQuiz('Biology')">Biology</button>
+    <button class="subject-btn" onclick="startQuiz('Account')">Account</button>
+    <button class="subject-btn" onclick="startQuiz('Commerce')">Commerce</button>
+    <button class="subject-btn" onclick="startQuiz('Mathematics')">Mathematics</button>
+    <button class="subject-btn" onclick="startQuiz('Literature')">Literature</button>
+    <button class="subject-btn" onclick="startQuiz('Government')">Government</button>
+  </div>
+</div>
 
   <!-- QUIZ PAGE -->
   <div id="quiz" class="card hide">
@@ -378,7 +389,20 @@ function startTimer(){
 function loadQuestion(){
   const questions = QUESTIONS[currentSubject];
   const q = questions[currentIndex];
+function showName() {
+  document.getElementById("home").classList.add("hide");
+  document.getElementById("namePage").classList.remove("hide");
+}
 
+function showSubjects() {
+  const name = document.getElementById("studentName").value.trim();
+  if (!name) {
+    alert("Please enter your name");
+    return;
+  }
+  document.getElementById("namePage").classList.add("hide");
+  document.getElementById("subjectPage").classList.remove("hide");
+  }
   document.getElementById('questionText').innerText = q.q;
   document.getElementById('progress').innerText = `Question ${currentIndex+1} of ${questions.length}`;
 
