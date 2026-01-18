@@ -21,11 +21,14 @@
     background:var(--bg);
     color:var(--text);
   }
+
+  /* MAIN CONTAINER */
   .container{
     max-width: 980px;
     margin: 40px auto;
     padding: 20px;
   }
+
   .card{
     background:var(--card);
     border-radius:var(--radius);
@@ -36,25 +39,20 @@
     margin:0 0 10px;
   }
 
-  .result-info {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  flex-wrap: wrap;
-  margin-top: 15px;
-  font-weight: 700;
-  color: var(--text);
-}
-
-.result-info span {
-  background: rgba(26, 115, 232, 0.10);
-  border: 1px solid rgba(26, 115, 232, 0.30);
-  padding: 10px 14px;
-  border-radius: 12px;
-}
   .center{
     text-align:center;
   }
+
+  /* Center home */
+  .full-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 18px;
+    min-height: 70vh;
+  }
+
   .subjects{
     display:grid;
     grid-template-columns:repeat(3,1fr);
@@ -117,12 +115,7 @@
     background:rgba(26,115,232,0.12);
     border-color:var(--primary);
   }
-  .footer{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-top:18px;
-  }
+
   .timer{
     font-weight:700;
     color:var(--primary);
@@ -143,12 +136,14 @@
     color:var(--muted);
   }
   .hide{display:none;}
+
   @media(max-width: 900px){
     .subjects{grid-template-columns:repeat(2,1fr);}
   }
   @media(max-width: 600px){
     .subjects{grid-template-columns:1fr;}
   }
+
   .whatsapp{
     text-align:right;
     margin-bottom: 10px;
@@ -161,62 +156,68 @@
   }
   .wa-icon{
     margin-right: 8px;
-  {
-    .full-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 18px;
-    }
-    .page-center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 80vh;
-      }
-    /* FOOTER */
-footer {
-  width: 100%;
-  background: #0b2a52;
-  color: #fff;
-  padding: 18px 0;
-  position: relative;   /* NOT fixed */
-  margin-top: 30px;     /* space from content */
-}
+  }
 
-.footer {
-  max-width: 980px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  flex-wrap: wrap;
-  text-align: center;
-}
+  /* FOOTER */
+  footer {
+    width: 100%;
+    background: #0b2a52;
+    color: #fff;
+    padding: 18px 0;
+    position: relative;
+    margin-top: 30px;
+  }
 
-.footer-links {
-  display: flex;
-  gap: 16px;
-}
+  .footer {
+    max-width: 980px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    text-align: center;
+  }
 
-.footer-links a {
-  color: #fff;
-  text-decoration: none;
-  font-weight: 600;
-}
+  .footer-links {
+    display: flex;
+    gap: 16px;
+  }
 
-.footer-links a:hover {
-  text-decoration: underline;
+  .footer-links a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .footer-links a:hover {
+    text-decoration: underline;
+  }
+
+  .result-info {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .result-info span {
+    background: rgba(26, 115, 232, 0.10);
+    border: 1px solid rgba(26, 115, 232, 0.30);
+    padding: 10px 14px;
+    border-radius: 12px;
   }
 </style>
 </head>
 <body>
 
-<div class="container page-center">
+<div class="container">
+
 <!-- HOME PAGE -->
-  <div id="home" class="card center full-center">
+<div id="home" class="card center full-center">
   <div class="whatsapp">
     <a href="https://whatsapp.com/channel/0029VbBcevAK5cDIAnKPEx2C" target="_blank">
       <span class="wa-icon">🟢</span> Follow our channel
@@ -251,80 +252,88 @@ footer {
   </div>
 </div>
 
-  <!-- QUIZ PAGE -->
-  <div id="quiz" class="card hide">
-    <div class="footer">
-      <div>
-        <h2 id="subjectTitle"></h2>
-        <p class="muted" id="progress"></p>
-      </div>
-      <div class="timer" id="timer">10:00</div>
+<!-- QUIZ PAGE -->
+<div id="quiz" class="card hide">
+  <div class="footer">
+    <div>
+      <h2 id="subjectTitle"></h2>
+      <p class="muted" id="progress"></p>
     </div>
-
-    <div class="quiz">
-      <div class="question" id="questionText"></div>
-      <div class="options" id="options"></div>
-    </div>
-
-    <div class="footer">
-      <button class="btn btn-secondary" id="prevBtn" onclick="prevQuestion()">Previous</button>
-      <button class="btn" id="nextBtn" onclick="nextQuestion()">Next</button>
-    </div>
+    <div class="timer" id="timer">10:00</div>
   </div>
 
-  <!-- RESULT PAGE -->
-  <div id="result" class="card hide">
-    <div class="center">
-      <h1>Result</h1>
-      <div class="result-info">
-  <span id="resultName"></span>
-  <span id="resultSubject"></span>
-      </div>
-      <div class="result-circle" id="scoreCircle">0%</div>
-      <p class="muted" id="scoreText"></p>
-      <button class="btn" onclick="goHome()">Go Home</button>
-      <button class="btn btn-secondary" onclick="retake()">Retake Quiz</button>
-    </div>
+  <div class="quiz">
+    <div class="question" id="questionText"></div>
+    <div class="options" id="options"></div>
+  </div>
+
+  <div class="footer">
+    <button class="btn btn-secondary" id="prevBtn" onclick="prevQuestion()">Previous</button>
+    <button class="btn" id="nextBtn" onclick="nextQuestion()">Next</button>
   </div>
 </div>
-  <!-- ABOUT SECTION -->
+
+<!-- RESULT PAGE -->
+<div id="result" class="card hide">
+  <div class="center">
+    <h1>Result</h1>
+    <div class="result-info">
+      <span id="resultName"></span>
+      <span id="resultSubject"></span>
+    </div>
+    <div class="result-circle" id="scoreCircle">0%</div>
+    <p class="muted" id="scoreText"></p>
+    <button class="btn" onclick="goHome()">Go Home</button>
+    <button class="btn btn-secondary" onclick="retake()">Retake Quiz</button>
+  </div>
+</div>
+
+</div>
+
+<!-- ABOUT SECTION -->
 <div id="aboutPage" class="page" style="display:none;">
-  <div class="card">
-    <h2>About Brain Wave Quiz</h2>
-    <p>
-      Brain Wave Quiz is a learning platform designed to help students practice and improve their knowledge in key subjects.
-      Our goal is to provide high-quality practice questions and accurate results to help students prepare for exams.
-    </p>
-    <button class="btn" onclick="showPage('home')">Back to Home</button>
+  <div class="container">
+    <div class="card">
+      <h2>About Brain Wave Quiz</h2>
+      <p>
+        Brain Wave Quiz is a learning platform designed to help students practice and improve their knowledge in key subjects.
+        Our goal is to provide high-quality practice questions and accurate results to help students prepare for exams.
+      </p>
+      <button class="btn" onclick="showPage('home')">Back to Home</button>
+    </div>
   </div>
 </div>
 
 <!-- CONTACT SECTION -->
 <div id="contactPage" class="page" style="display:none;">
-  <div class="card">
-    <h2>Contact Us</h2>
-    <p>If you need support, you can reach us via WhatsApp:</p>
-    <ul>
-      <li>+2347055087162</li>
-      <li>+2349122079211</li>
-      <li>+2347045164274</li>
-    </ul>
-    <p>Follow our WhatsApp channel for updates:</p>
-    <a class="btn" href="https://whatsapp.com/channel/0029VbBcevAK5cDIAnKPEx2C" target="_blank">Follow our channel</a>
-    <br><br>
-    <button class="btn" onclick="showPage('home')">Back to Home</button>
+  <div class="container">
+    <div class="card">
+      <h2>Contact Us</h2>
+      <p>If you need support, you can reach us via WhatsApp:</p>
+      <ul>
+        <li>+2347055087162</li>
+        <li>+2349122079211</li>
+        <li>+2347045164274</li>
+      </ul>
+      <p>Follow our WhatsApp channel for updates:</p>
+      <a class="btn" href="https://whatsapp.com/channel/0029VbBcevAK5cDIAnKPEx2C" target="_blank">Follow our channel</a>
+      <br><br>
+      <button class="btn" onclick="showPage('home')">Back to Home</button>
+    </div>
   </div>
 </div>
 
 <!-- PRIVACY POLICY SECTION -->
 <div id="privacyPage" class="page" style="display:none;">
-  <div class="card">
-    <h2>Privacy Policy</h2>
-    <p>
-      Brain Wave Quiz respects your privacy. We do not collect or store personal data except for the name you enter for the quiz result.
-      Your data is used only for displaying results and is not shared with any third party.
-    </p>
-    <button class="btn" onclick="showPage('home')">Back to Home</button>
+  <div class="container">
+    <div class="card">
+      <h2>Privacy Policy</h2>
+      <p>
+        Brain Wave Quiz respects your privacy. We do not collect or store personal data except for the name you enter for the quiz result.
+        Your data is used only for displaying results and is not shared with any third party.
+      </p>
+      <button class="btn" onclick="showPage('home')">Back to Home</button>
+    </div>
   </div>
 </div>
 
@@ -362,10 +371,10 @@ let currentIndex = 0;
 let answers = {};
 let timerInterval;
 let timeLeft = 600; // 10 minutes
-let studentName = "";  
+let studentName = "";
 
 function showName() {
-  document.getElementById("home").classList.add("hide");
+  hideAllPages();
   document.getElementById("namePage").classList.remove("hide");
 }
 
@@ -375,9 +384,9 @@ function showSubjects() {
     alert("Please enter your name");
     return;
   }
-  document.getElementById("namePage").classList.add("hide");
+  hideAllPages();
   document.getElementById("subjectPage").classList.remove("hide");
-    }
+}
 
 function startQuiz(subject){
   currentSubject = subject;
@@ -388,9 +397,8 @@ function startQuiz(subject){
     return;
   }
 
-  document.getElementById('subjectPage').classList.add('hide');
+  hideAllPages();
   document.getElementById('quiz').classList.remove('hide');
-  document.getElementById('result').classList.add('hide');
 
   currentIndex = 0;
   answers = {};
@@ -482,7 +490,7 @@ function finishQuiz(){
 
   const percent = Math.round((score / questions.length) * 100);
 
-  document.getElementById('quiz').classList.add('hide');
+  hideAllPages();
   document.getElementById('result').classList.remove('hide');
 
   document.getElementById('resultName').innerText = `Name: ${studentName}`;
@@ -492,20 +500,31 @@ function finishQuiz(){
 }
 
 function goHome(){
+  hideAllPages();
   document.getElementById('home').classList.remove('hide');
-  document.getElementById('quiz').classList.add('hide');
-  document.getElementById('result').classList.add('hide');
   clearInterval(timerInterval);
 }
 
 function retake(){
   startQuiz(currentSubject);
 }
-  function showPage(pageId) {
-  document.querySelectorAll('.page').forEach(page => page.style.display = 'none');
+
+function showPage(pageId) {
+  hideAllPages();
   document.getElementById(pageId).style.display = 'block';
-  }
+}
+
+function hideAllPages(){
+  document.getElementById("home").classList.add("hide");
+  document.getElementById("namePage").classList.add("hide");
+  document.getElementById("subjectPage").classList.add("hide");
+  document.getElementById("quiz").classList.add("hide");
+  document.getElementById("result").classList.add("hide");
+  document.querySelectorAll('.page').forEach(page => page.style.display = 'none');
+}
+
 </script>
+
 <footer>
   <div class="footer">
     <span>© 2026 Brain Wave Quiz • All rights reserved</span>
@@ -516,5 +535,6 @@ function retake(){
     </div>
   </div>
 </footer>
+
 </body>
-</html>
+  </html>
