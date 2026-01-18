@@ -226,7 +226,7 @@
 
   <h1>Brain Wave Quiz</h1>
   <p class="muted">Click Start Test to begin</p>
-  <button class="btn" onclick="showName()">Start Test</button>
+  <button class="btn" onclick="showPage('namePage')">Start Test</button>
 </div>
 
 <!-- NAME INPUT PAGE -->
@@ -311,9 +311,9 @@
       <h2>Contact Us</h2>
       <p>If you need support, you can reach us via WhatsApp:</p>
       <ul>
-        <li>+2347055087162</li>
-        <li>+2349122079211</li>
-        <li>+2347045164274</li>
+        <li>Olamide: +2347055087162</li>
+        <li>Darasimi: +2349122079211</li>
+        <li>Kenny: +2347045164274</li>
       </ul>
       <p>Follow our WhatsApp channel for updates:</p>
       <a class="btn" href="https://whatsapp.com/channel/0029VbBcevAK5cDIAnKPEx2C" target="_blank">Follow our channel</a>
@@ -510,9 +510,19 @@ function retake(){
 }
 
 function showPage(pageId) {
-  hideAllPages();
-  document.getElementById(pageId).style.display = 'block';
-}
+  // Hide everything first
+  const allSections = [
+    "home", "namePage", "subjectPage", "quiz", "result",
+    "aboutPage", "contactPage", "privacyPage"
+  ];
+
+  allSections.forEach(id => {
+    document.getElementById(id).style.display = "none";
+  });
+
+  // Then show the selected section
+  document.getElementById(pageId).style.display = "block";
+  }
 
 function hideAllPages(){
   document.getElementById("home").classList.add("hide");
