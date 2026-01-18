@@ -373,79 +373,93 @@ let timerInterval;
 let timeLeft = 600; // 10 minutes
 let studentName = "";
 
-function showName() {
-  hideAllPages();
-  document.getElementById("namePage").classList.remove("hide");
+// --------------------------
+// SHOW / HIDE PAGES
+// --------------------------
+function hideAllPages() {
+  document.getElementById("home").classList.add("hide");
+  document.getElementById("namePage").classList.add("hide");
+  document.getElementById("subjectPage").classList.add("hide");
+  document.getElementById("quiz").classList.add("hide");
+  document.getElementById("result").classList.add("hide");
+
+  document.getElementById("aboutPage").style.display = "none";
+  document.getElementById("contactPage").style.display = "none";
+  document.getElementById("privacyPage").style.display = "none";
 }
 
-function showSubjects() {
-  studentName = document.getElementById("studentName").value.trim();
-  if (!studentName) {
-    alert("Please enter your name");
-    return;
-  }
-  showPage('subjectPage');
-            }
+function showPage(pageId) {
+  hideAllPages();
 
-function startQuiz(subject){
+  if (pageId === "aboutPage" || pageId === "contactPage" || pageId === "privacyPage") {
+    document.getElementById(pageId).style.display = "block";
+  } else {
+    document.getElementById(pageId).classList.remove("hide");
+  }
+}
+
+// --------------------------
+// START QUIZ FLOW
+// --------------------------
+function startQuiz(subject) {
   currentSubject = subject;
   const questions = QUESTIONS[subject];
 
-  if(!questions || questions.length === 0){
+  if (!questions || questions.length === 0) {
     alert("No question available for this subject at the moment.");
     return;
   }
 
   hideAllPages();
-  document.getElementById('quiz').classList.remove('hide');
+  document.getElementById("quiz").classList.remove("hide");
 
   currentIndex = 0;
   answers = {};
   timeLeft = 600;
 
-  document.getElementById('subjectTitle').innerText = subject;
-  document.getElementById('progress').innerText = `Question 1 of ${questions.length}`;
+  document.getElementById("subjectTitle").innerText = subject;
+  document.getElementById("progress").innerText = `Question 1 of ${questions.length}`;
 
   startTimer();
   loadQuestion();
 }
 
-function startTimer(){
+function startTimer() {
   clearInterval(timerInterval);
-  timerInterval = setInterval(()=>{
+  timerInterval = setInterval(() => {
     timeLeft--;
-    const minutes = String(Math.floor(timeLeft/60)).padStart(2,'0');
-    const seconds = String(timeLeft%60).padStart(2,'0');
-    document.getElementById('timer').innerText = `${minutes}:${seconds}`;
+    const minutes = String(Math.floor(timeLeft / 60)).padStart(2, '0');
+    const seconds = String(timeLeft % 60).padStart(2, '0');
+    document.getElementById("timer").innerText = `${minutes}:${seconds}`;
 
-    if(timeLeft <= 0){
+    if (timeLeft <= 0) {
       clearInterval(timerInterval);
       finishQuiz();
     }
   }, 1000);
 }
 
-function loadQuestion(){
+function loadQuestion() {
   const questions = QUESTIONS[currentSubject];
   const q = questions[currentIndex];
 
-  document.getElementById('questionText').innerText = q.q;
-  document.getElementById('progress').innerText = `Question ${currentIndex+1} of ${questions.length}`;
+  document.getElementById("questionText").innerText = q.q;
+  document.getElementById("progress").innerText = `Question ${currentIndex + 1} of ${questions.length}`;
 
-  const optionsDiv = document.getElementById('options');
-  optionsDiv.innerHTML = '';
+  const optionsDiv = document.getElementById("options");
+  optionsDiv.innerHTML = "";
 
-  q.o.forEach((opt, index)=>{
+  q.o.forEach((opt, index) => {
     const letter = String.fromCharCode(65 + index);
-    const optionEl = document.createElement('div');
-    optionEl.className = 'option';
+    const optionEl = document.createElement("div");
+    optionEl.className = "option";
     optionEl.innerText = `${letter}. ${opt}`;
 
-    if(answers[currentIndex] === letter){
-      optionEl.classList.add('selected');
+    if (answers[currentIndex] === letter) {
+      optionEl.classList.add("selected");
     }
 
-    optionEl.onclick = ()=>{
+    optionEl.onclick = () => {
       answers[currentIndex] = letter;
       loadQuestion();
     };
@@ -453,21 +467,21 @@ function loadQuestion(){
     optionsDiv.appendChild(optionEl);
   });
 
-  document.getElementById('prevBtn').disabled = currentIndex === 0;
-  document.getElementById('nextBtn').innerText = currentIndex === questions.length - 1 ? 'Submit' : 'Next';
+  document.getElementById("prevBtn").disabled = currentIndex === 0;
+  document.getElementById("nextBtn").innerText = currentIndex === questions.length - 1 ? "Submit" : "Next";
 }
 
-function prevQuestion(){
-  if(currentIndex > 0){
+function prevQuestion() {
+  if (currentIndex > 0) {
     currentIndex--;
     loadQuestion();
   }
 }
 
-function nextQuestion(){
+function nextQuestion() {
   const questions = QUESTIONS[currentSubject];
 
-  if(currentIndex < questions.length - 1){
+  if (currentIndex < questions.length - 1) {
     currentIndex++;
     loadQuestion();
   } else {
@@ -475,76 +489,36 @@ function nextQuestion(){
   }
 }
 
-function finishQuiz(){
+function finishQuiz() {
   clearInterval(timerInterval);
 
   const questions = QUESTIONS[currentSubject];
   let score = 0;
 
-  questions.forEach((q, index)=>{
-    if(answers[index] === q.a){
-      score++;
-    }
+  questions.forEach((q, index) => {
+    if (answers[index] === q.a) score++;
   });
 
   const percent = Math.round((score / questions.length) * 100);
 
   hideAllPages();
-  document.getElementById('result').classList.remove('hide');
+  document.getElementById("result").classList.remove("hide");
 
-  document.getElementById('resultName').innerText = `Name: ${studentName}`;
-  document.getElementById('resultSubject').innerText = `Subject: ${currentSubject}`;
-  document.getElementById('scoreCircle').innerText = `${percent}%`;
-  document.getElementById('scoreText').innerText = `You answered ${score} out of ${questions.length} correctly.`;
+  document.getElementById("resultName").innerText = `Name: ${studentName}`;
+  document.getElementById("resultSubject").innerText = `Subject: ${currentSubject}`;
+  document.getElementById("scoreCircle").innerText = `${percent}%`;
+  document.getElementById("scoreText").innerText = `You answered ${score} out of ${questions.length} correctly.`;
 }
 
-function goHome(){
+function goHome() {
   hideAllPages();
-  document.getElementById('home').classList.remove('hide');
+  document.getElementById("home").classList.remove("hide");
   clearInterval(timerInterval);
 }
 
-function retake(){
+function retake() {
   startQuiz(currentSubject);
-  }
-  function showPage(pageId) {
-  // Hide all main sections
-  document.getElementById("home").classList.add("hide");
-  document.getElementById("namePage").classList.add("hide");
-  document.getElementById("subjectPage").classList.add("hide");
-  document.getElementById("quiz").classList.add("hide");
-  document.getElementById("result").classList.add("hide");
-
-  // Hide other pages
-  document.getElementById("aboutPage").style.display = "none";
-  document.getElementById("contactPage").style.display = "none";
-  document.getElementById("privacyPage").style.display = "none";
-
-  // Show the selected page
-  if (pageId === "aboutPage" || pageId === "contactPage" || pageId === "privacyPage") {
-    document.getElementById(pageId).style.display = "block";
-  } else {
-    document.getElementById(pageId).classList.remove("hide");
-  }
-  }
-
-  allSections.forEach(id => {
-    document.getElementById(id).style.display = "none";
-  });
-
-  // Then show the selected section
-  document.getElementById(pageId).style.display = "block";
-  }
-
-function hideAllPages(){
-  document.getElementById("home").classList.add("hide");
-  document.getElementById("namePage").classList.add("hide");
-  document.getElementById("subjectPage").classList.add("hide");
-  document.getElementById("quiz").classList.add("hide");
-  document.getElementById("result").classList.add("hide");
-  document.querySelectorAll('.page').forEach(page => page.style.display = 'none');
 }
-
 </script>
 
 <footer>
