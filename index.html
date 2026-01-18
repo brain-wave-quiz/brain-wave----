@@ -35,6 +35,23 @@
   h1, h2{
     margin:0 0 10px;
   }
+
+  .result-info {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 15px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.result-info span {
+  background: rgba(26, 115, 232, 0.10);
+  border: 1px solid rgba(26, 115, 232, 0.30);
+  padding: 10px 14px;
+  border-radius: 12px;
+}
   .center{
     text-align:center;
   }
@@ -211,7 +228,10 @@
   <div id="result" class="card hide">
     <div class="center">
       <h1>Result</h1>
-      <p class="muted" id="resultSubject"></p>
+      <div class="result-info">
+  <span id="resultName"></span>
+  <span id="resultSubject"></span>
+      </div>
       <div class="result-circle" id="scoreCircle">0%</div>
       <p class="muted" id="scoreText"></p>
       <button class="btn" onclick="goHome()">Go Home</button>
@@ -377,7 +397,8 @@ function finishQuiz(){
   document.getElementById('quiz').classList.add('hide');
   document.getElementById('result').classList.remove('hide');
 
-  document.getElementById('resultSubject').innerText = `Name: ${studentName} | Subject: ${currentSubject}`;
+  document.getElementById('resultName').innerText = `Name: ${studentName}`;
+  document.getElementById('resultSubject').innerText = `Subject: ${currentSubject}`;
   document.getElementById('scoreCircle').innerText = `${percent}%`;
   document.getElementById('scoreText').innerText = `You answered ${score} out of ${questions.length} correctly.`;
 }
