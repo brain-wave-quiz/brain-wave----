@@ -202,6 +202,7 @@
   <div id="result" class="card hide">
     <div class="center">
       <h1>Result</h1>
+      <p class="muted" id="resultSubject"></p>
       <div class="result-circle" id="scoreCircle">0%</div>
       <p class="muted" id="scoreText"></p>
       <button class="btn" onclick="goHome()">Go Home</button>
@@ -441,6 +442,7 @@ function finishQuiz(){
   document.getElementById('quiz').classList.add('hide');
   document.getElementById('result').classList.remove('hide');
 
+  document.getElementById('resultSubject').innerText = `Subject: ${currentSubject}`;
   document.getElementById('scoreCircle').innerText = `${percent}%`;
   document.getElementById('scoreText').innerText = `You answered ${score} out of ${questions.length} correctly.`;
 }
