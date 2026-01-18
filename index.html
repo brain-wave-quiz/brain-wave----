@@ -161,19 +161,25 @@
   }
   .wa-icon{
     margin-right: 8px;
-  }
-  .full-center {
+  {
+    .full-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 18px;
+    }
+    .page-center {
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 80vh;
-  flex-direction: column;
-    }
+      }
 </style>
 </head>
 <body>
 
-<div class="container">
+<div class="container page-center">
 <!-- HOME PAGE -->
   <div id="home" class="card center full-center">
   <div class="whatsapp">
