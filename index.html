@@ -254,6 +254,7 @@ let currentIndex = 0;
 let answers = {};
 let timerInterval;
 let timeLeft = 600; // 10 minutes
+let studentName = "";  
 
 function showName() {
   document.getElementById("home").classList.add("hide");
@@ -261,14 +262,14 @@ function showName() {
 }
 
 function showSubjects() {
-  const name = document.getElementById("studentName").value.trim();
-  if (!name) {
+  studentName = document.getElementById("studentName").value.trim();
+  if (!studentName) {
     alert("Please enter your name");
     return;
   }
   document.getElementById("namePage").classList.add("hide");
   document.getElementById("subjectPage").classList.remove("hide");
-}
+    }
 
 function startQuiz(subject){
   currentSubject = subject;
@@ -376,7 +377,7 @@ function finishQuiz(){
   document.getElementById('quiz').classList.add('hide');
   document.getElementById('result').classList.remove('hide');
 
-  document.getElementById('resultSubject').innerText = `Subject: ${currentSubject}`;
+  document.getElementById('resultSubject').innerText = `Name: ${studentName} | Subject: ${currentSubject}`;
   document.getElementById('scoreCircle').innerText = `${percent}%`;
   document.getElementById('scoreText').innerText = `You answered ${score} out of ${questions.length} correctly.`;
 }
