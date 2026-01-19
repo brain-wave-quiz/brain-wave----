@@ -5,210 +5,235 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Brain Wave Quiz</title>
 <style>
-  :root{
-    --primary:#1a73e8;
-    --bg:#f4f6fb;
-    --card:#fff;
-    --text:#111;
-    --muted:#666;
-    --shadow:0 10px 30px rgba(0,0,0,0.08);
-    --radius:18px;
-  }
-  *{box-sizing:border-box}
-  body{
-    margin:0;
-    font-family: Arial, sans-serif;
-    background:var(--bg);
-    color:var(--text);
-  }
+ :root{
+  --primary:#1a73e8;
+  --primary-glow: rgba(26,115,232,0.35);
+  --bg:#0a0f1b;
+  --card:#0f1730;
+  --text:#f4f7ff;
+  --muted:#a8b2d1;
+  --shadow:0 20px 60px rgba(0,0,0,0.5);
+  --radius:20px;
+}
 
-  /* MAIN CONTAINER */
-  .container{
-    max-width: 980px;
-    margin: 40px auto;
-    padding: 20px;
-  }
+/* GLOBAL */
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family: Arial, sans-serif;
+  background: radial-gradient(circle at top, #1c2a4a 0%, #0a0f1b 60%, #04070f 100%);
+  color:var(--text);
+}
 
-  .card{
-    background:var(--card);
-    border-radius:var(--radius);
-    box-shadow:var(--shadow);
-    padding: 25px;
-  }
-  h1, h2{
-    margin:0 0 10px;
-  }
+/* GLOW ANIMATION */
+@keyframes glow {
+  0% { box-shadow: 0 0 12px rgba(26,115,232,0.2); }
+  50% { box-shadow: 0 0 28px rgba(26,115,232,0.45); }
+  100% { box-shadow: 0 0 12px rgba(26,115,232,0.2); }
+}
 
-  .center{
-    text-align:center;
-  }
+/* MAIN CONTAINER */
+.container{
+  max-width: 980px;
+  margin: 40px auto;
+  padding: 20px;
+}
 
-  /* Center home */
-  .full-center {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 18px;
-    min-height: 70vh;
-  }
+/* CARD */
+.card{
+  background: linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  padding: 25px;
+  border: 1px solid rgba(26,115,232,0.35);
+}
 
-  .subjects{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:18px;
-    margin-top:20px;
-  }
-  .subject-btn{
-    background:var(--primary);
-    color:#fff;
-    border:none;
-    padding:18px;
-    border-radius:14px;
-    font-size:16px;
-    cursor:pointer;
-    transition:transform .2s;
-  }
-  .subject-btn:hover{transform:translateY(-3px)}
-  .btn{
-    background:var(--primary);
-    color:#fff;
-    border:none;
-    padding:12px 18px;
-    border-radius:12px;
-    cursor:pointer;
-    font-size:16px;
-  }
-  .btn-secondary{
-    background:#fff;
-    color:var(--primary);
-    border:2px solid var(--primary);
-  }
-  .btn:disabled{
-    opacity:.6;
-    cursor:not-allowed;
-  }
-  .quiz{
-    margin-top:20px;
-  }
-  .question{
-    font-size:18px;
-    font-weight:600;
-    margin-bottom:14px;
-  }
-  .options{
-    display:grid;
-    grid-template-columns:1fr;
-    gap:12px;
-  }
-  .option{
-    border:2px solid #ddd;
-    border-radius:14px;
-    padding:14px;
-    cursor:pointer;
-    transition:0.2s;
-  }
-  .option:hover{
-    border-color:var(--primary);
-  }
-  .option.selected{
-    background:rgba(26,115,232,0.12);
-    border-color:var(--primary);
-  }
+/* TITLES */
+h1, h2{
+  margin:0 0 10px;
+  text-align:center;
+  letter-spacing: 1px;
+}
 
-  .timer{
-    font-weight:700;
-    color:var(--primary);
-  }
-  .result-circle{
-    width:160px;
-    height:160px;
-    border-radius:50%;
-    border:10px solid rgba(26,115,232,0.25);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    margin:20px auto;
-    font-size:26px;
-    font-weight:700;
-  }
-  .muted{
-    color:var(--muted);
-  }
-  .hide{display:none;}
+/* CENTER */
+.center{
+  text-align:center;
+}
+.full-center{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:18px;
+  min-height:70vh;
+}
 
-  @media(max-width: 900px){
-    .subjects{grid-template-columns:repeat(2,1fr);}
-  }
-  @media(max-width: 600px){
-    .subjects{grid-template-columns:1fr;}
-  }
+/* SUBJECT BUTTONS */
+.subjects{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+  margin-top:20px;
+}
 
-  .whatsapp{
-    text-align:right;
-    margin-bottom: 10px;
-  }
-  .whatsapp a{
-    text-decoration:none;
-    font-weight:700;
-    color:var(--primary);
-    font-size:16px;
-  }
-  .wa-icon{
-    margin-right: 8px;
-  }
+.subject-btn{
+  background: linear-gradient(145deg, rgba(26,115,232,0.9), rgba(26,115,232,0.65));
+  color:#fff;
+  border:none;
+  padding:18px;
+  border-radius:16px;
+  font-size:16px;
+  cursor:pointer;
+  transition:transform .2s;
+  border: 1px solid rgba(255,255,255,0.2);
+  box-shadow: 0 0 18px rgba(26,115,232,0.25);
+  animation: glow 2.5s infinite;
+}
 
-  /* FOOTER */
-  footer {
-    width: 100%;
-    background: #0b2a52;
-    color: #fff;
-    padding: 18px 0;
-    position: relative;
-    margin-top: 30px;
-  }
+.subject-btn:hover{
+  transform:translateY(-3px);
+  box-shadow: 0 0 30px rgba(26,115,232,0.45);
+}
 
-  .footer {
-    max-width: 980px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    flex-wrap: wrap;
-    text-align: center;
-  }
+/* BUTTONS */
+.btn{
+  background: linear-gradient(145deg, rgba(26,115,232,0.9), rgba(26,115,232,0.65));
+  color:#fff;
+  border:none;
+  padding:12px 18px;
+  border-radius:12px;
+  cursor:pointer;
+  font-size:16px;
+  border: 1px solid rgba(255,255,255,0.2);
+  box-shadow: 0 0 18px rgba(26,115,232,0.25);
+}
 
-  .footer-links {
-    display: flex;
-    gap: 16px;
-  }
+.btn-secondary{
+  background: rgba(255,255,255,0.05);
+  color:var(--primary);
+  border:2px solid var(--primary);
+}
 
-  .footer-links a {
-    color: #fff;
-    text-decoration: none;
-    font-weight: 600;
-  }
+/* QUIZ */
+.quiz{
+  margin-top:20px;
+}
+.question{
+  font-size:18px;
+  font-weight:600;
+  margin-bottom:14px;
+}
 
-  .footer-links a:hover {
-    text-decoration: underline;
-  }
+.options{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:12px;
+}
 
-  .result-info {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-    margin-top: 15px;
-    font-weight: 700;
-    color: var(--text);
-  }
+.option{
+  border:2px solid rgba(255,255,255,0.12);
+  border-radius:14px;
+  padding:14px;
+  cursor:pointer;
+  transition:0.2s;
+  background: rgba(255,255,255,0.05);
+}
 
-  .result-info span {
-    background: rgba(26, 115, 232, 0.10);
-    border: 1px solid rgba(26, 115, 232, 0.30);
-    padding: 10px 14px;
-    border-radius: 12px;
+.option:hover{
+  border-color:var(--primary);
+  box-shadow: 0 0 20px rgba(26,115,232,0.25);
+}
+
+.option.selected{
+  background: rgba(26,115,232,0.12);
+  border-color:var(--primary);
+}
+
+/* TIMER */
+.timer{
+  font-weight:700;
+  color:var(--primary);
+}
+
+/* RESULT */
+.result-circle{
+  width:160px;
+  height:160px;
+  border-radius:50%;
+  border:10px solid rgba(26,115,232,0.25);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:20px auto;
+  font-size:26px;
+  font-weight:700;
+  box-shadow: 0 0 28px rgba(26,115,232,0.35);
+}
+
+.muted{
+  color:var(--muted);
+}
+.hide{display:none;}
+
+/* RESPONSIVE */
+@media(max-width: 900px){
+  .subjects{grid-template-columns:repeat(2,1fr);}
+}
+@media(max-width: 600px){
+  .subjects{grid-template-columns:1fr;}
+}
+
+/* FOOTER */
+footer {
+  width: 100%;
+  background: #04070f;
+  color: #fff;
+  padding: 18px 0;
+  position: relative;
+  margin-top: 30px;
+}
+
+.footer {
+  max-width: 980px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.footer-links {
+  display: flex;
+  gap: 16px;
+}
+
+.footer-links a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+.result-info {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 15px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.result-info span {
+  background: rgba(26, 115, 232, 0.10);
+  border: 1px solid rgba(26, 115, 232, 0.30);
+  padding: 10px 14px;
+  border-radius: 12px;
   }
 </style>
 </head>
