@@ -365,836 +365,106 @@ footer {
 
 <script>
 const QUESTIONS = {
-  "English": [
-   
-  ],
-  "Physics": [
-  {
-    "q": "The S.I unit of force is:",
-    "o": ["joule", "newton", "watt", "pascal"],
-    "a": "B"
-  },
-  {
-    "q": "A body at rest will remain at rest unless acted upon by a force. This is known as:",
-    "o": ["Newton’s first law", "Newton’s second law", "Newton’s third law", "Law of gravitation"],
-    "a": "A"
-  },
-  {
-    "q": "Which instrument is used to measure electric current?",
-    "o": ["Voltmeter", "Ammeter", "Galvanometer", "Thermometer"],
-    "a": "B"
-  },
-  {
-    "q": "The unit of electric resistance is:",
-    "o": ["volt", "ohm", "ampere", "watt"],
-    "a": "B"
-  },
-  {
-    "q": "What is the speed of light in vacuum?",
-    "o": ["3 × 10⁶ m/s", "3 × 10⁸ m/s", "3 × 10¹⁰ m/s", "3 × 10⁴ m/s"],
-    "a": "B"
-  },
-  {
-    "q": "The turning effect of a force is called:",
-    "o": ["pressure", "moment", "impulse", "work"],
-    "a": "B"
-  },
-  {
-    "q": "Which of the following is a vector quantity?",
-    "o": ["Speed", "Distance", "Velocity", "Mass"],
-    "a": "C"
-  },
-  {
-    "q": "Heat transfer through solids occurs mainly by:",
-    "o": ["radiation", "convection", "conduction", "evaporation"],
-    "a": "C"
-  },
-  {
-    "q": "A device used to step up voltage is:",
-    "o": ["generator", "transformer", "motor", "battery"],
-    "a": "B"
-  },
-  {
-    "q": "Which of the following is NOT a form of energy?",
-    "o": ["Kinetic", "Potential", "Thermal", "Density"],
-    "a": "D"
-  },
-  {
-    "q": "The force that opposes motion between two surfaces is:",
-    "o": ["gravity", "friction", "thrust", "tension"],
-    "a": "B"
-  },
-  {
-    "q": "The S.I unit of pressure is:",
-    "o": ["newton", "joule", "pascal", "watt"],
-    "a": "C"
-  },
-  {
-    "q": "Sound cannot travel through:",
-    "o": ["air", "water", "solid", "vacuum"],
-    "a": "D"
-  },
-  {
-    "q": "Which mirror is used as a car side mirror?",
-    "o": ["Plane", "Concave", "Convex", "Spherical"],
-    "a": "C"
-  },
-  {
-    "q": "The energy possessed by a moving body is:",
-    "o": ["potential", "kinetic", "chemical", "heat"],
-    "a": "B"
-  },
-  {
-    "q": "An object floats because:",
-    "o": ["its mass is small", "upthrust equals its weight", "it has large volume", "it has no weight"],
-    "a": "B"
-  },
-  {
-    "q": "The unit of power is:",
-    "o": ["joule", "newton", "watt", "volt"],
-    "a": "C"
-  },
-  {
-    "q": "Which wave does not require a medium?",
-    "o": ["Sound wave", "Water wave", "Light wave", "Shock wave"],
-    "a": "C"
-  },
-  {
-    "q": "The device that converts electrical energy to mechanical energy is:",
-    "o": ["generator", "motor", "transformer", "cell"],
-    "a": "B"
-  },
-  {
-    "q": "Work is done when a force causes:",
-    "o": ["rest", "motion", "displacement", "pressure"],
-    "a": "C"
-  }
-],
-  "Chemistry": [
-  {
-    "q": "The smallest particle of an element that retains its properties is:",
-    "o": ["atom", "molecule", "compound", "mixture"],
-    "a": "A"
-  },
-  {
-    "q": "Which of the following is a physical change?",
-    "o": ["Burning", "Rusting", "Melting", "Fermentation"],
-    "a": "C"
-  },
-  {
-    "q": "The chemical symbol for sodium is:",
-    "o": ["So", "Na", "Sd", "Sn"],
-    "a": "B"
-  },
-  {
-    "q": "Air is a mixture because it:",
-    "o": ["has fixed composition", "is chemically combined", "can be separated physically", "is pure"],
-    "a": "C"
-  },
-  {
-    "q": "Which gas is produced when zinc reacts with dilute hydrochloric acid?",
-    "o": ["Oxygen", "Carbon dioxide", "Hydrogen", "Nitrogen"],
-    "a": "C"
-  },
-  {
-    "q": "The pH of a neutral solution is:",
-    "o": ["0", "7", "14", "10"],
-    "a": "B"
-  },
-  {
-    "q": "Which of the following is an acid?",
-    "o": ["NaOH", "HCl", "KOH", "NH₃"],
-    "a": "B"
-  },
-  {
-    "q": "The process of converting a solid directly to gas is:",
-    "o": ["evaporation", "condensation", "sublimation", "melting"],
-    "a": "C"
-  },
-  {
-    "q": "Which of the following metals is most reactive?",
-    "o": ["Iron", "Copper", "Sodium", "Silver"],
-    "a": "C"
-  },
-  {
-    "q": "The rusting of iron requires:",
-    "o": ["water only", "air only", "water and oxygen", "carbon dioxide"],
-    "a": "C"
-  },
-  {
-    "q": "Which of these is a noble gas?",
-    "o": ["Oxygen", "Nitrogen", "Neon", "Hydrogen"],
-    "a": "C"
-  },
-  {
-    "q": "The chemical formula of water is:",
-    "o": ["HO", "H₂O", "H₂O₂", "OH"],
-    "a": "B"
-  },
-  {
-    "q": "An element that forms positive ions easily is:",
-    "o": ["non-metal", "metalloid", "metal", "gas"],
-    "a": "C"
-  },
-  {
-    "q": "Which process is used to separate crude oil?",
-    "o": ["Filtration", "Crystallization", "Fractional distillation", "Evaporation"],
-    "a": "C"
-  },
-  {
-    "q": "The mass number of an atom is the sum of:",
-    "o": ["electrons and protons", "neutrons only", "protons and neutrons", "electrons only"],
-    "a": "C"
-  },
-  {
-    "q": "Which compound is an alkali?",
-    "o": ["H₂SO₄", "NaOH", "HCl", "NH₄Cl"],
-    "a": "B"
-  },
-  {
-    "q": "The gas that turns limewater milky is:",
-    "o": ["oxygen", "carbon dioxide", "hydrogen", "nitrogen"],
-    "a": "B"
-  },
-  {
-    "q": "Which of the following is a compound?",
-    "o": ["Air", "Water", "Iron", "Salt solution"],
-    "a": "B"
-  },
-  {
-    "q": "Electrolysis is the process of:",
-    "o": ["heating substances", "chemical decomposition by electricity", "mixing solutions", "cooling liquids"],
-    "a": "B"
-  },
-  {
-    "q": "Which acid is found in vinegar?",
-    "o": ["Citric acid", "Sulphuric acid", "Acetic acid", "Nitric acid"],
-    "a": "C"
-  }
-],
-  "Biology": [
-  {
-    "q": "The basic unit of life is:",
-    "o": ["tissue", "cell", "organ", "system"],
-    "a": "B"
-  },
-  {
-    "q": "Photosynthesis occurs in the:",
-    "o": ["mitochondria", "nucleus", "chloroplast", "ribosome"],
-    "a": "C"
-  },
-  {
-    "q": "Which organ pumps blood round the body?",
-    "o": ["lung", "kidney", "heart", "liver"],
-    "a": "C"
-  },
-  {
-    "q": "Which gas is released during photosynthesis?",
-    "o": ["carbon dioxide", "oxygen", "nitrogen", "hydrogen"],
-    "a": "B"
-  },
-  {
-    "q": "The process by which plants lose water vapour is:",
-    "o": ["respiration", "transpiration", "photosynthesis", "excretion"],
-    "a": "B"
-  },
-  {
-    "q": "Which blood cells help in fighting infection?",
-    "o": ["red blood cells", "white blood cells", "platelets", "plasma"],
-    "a": "B"
-  },
-  {
-    "q": "The movement of substances across a membrane from high to low concentration is:",
-    "o": ["osmosis", "diffusion", "active transport", "translocation"],
-    "a": "B"
-  },
-  {
-    "q": "Which organ is responsible for respiration in humans?",
-    "o": ["heart", "lungs", "kidney", "liver"],
-    "a": "B"
-  },
-  {
-    "q": "The food manufactured by plants is:",
-    "o": ["protein", "fat", "glucose", "starch"],
-    "a": "C"
-  },
-  {
-    "q": "Which of these is a sense organ?",
-    "o": ["brain", "eye", "heart", "lung"],
-    "a": "B"
-  },
-  {
-    "q": "Which tissue transports water in plants?",
-    "o": ["phloem", "xylem", "cortex", "epidermis"],
-    "a": "B"
-  },
-  {
-    "q": "The largest organ in the human body is:",
-    "o": ["heart", "skin", "liver", "lung"],
-    "a": "B"
-  },
-  {
-    "q": "Which vitamin is produced in the skin by sunlight?",
-    "o": ["Vitamin A", "Vitamin B", "Vitamin C", "Vitamin D"],
-    "a": "D"
-  },
-  {
-    "q": "Which of the following is an excretory organ?",
-    "o": ["lung", "kidney", "heart", "brain"],
-    "a": "B"
-  },
-  {
-    "q": "Which group of organisms can make their own food?",
-    "o": ["herbivores", "carnivores", "autotrophs", "parasites"],
-    "a": "C"
-  },
-  {
-    "q": "The process of cell division for growth is:",
-    "o": ["meiosis", "mitosis", "fertilization", "pollination"],
-    "a": "B"
-  },
-  {
-    "q": "Which part of the flower develops into fruit?",
-    "o": ["sepal", "petal", "ovary", "stamen"],
-    "a": "C"
-  },
-  {
-    "q": "Which organism causes malaria?",
-    "o": ["virus", "bacteria", "plasmodium", "fungus"],
-    "a": "C"
-  },
-  {
-    "q": "Breathing is controlled by the:",
-    "o": ["heart", "lungs", "brain", "kidney"],
-    "a": "C"
-  },
-  {
-    "q": "Which structure connects muscles to bones?",
-    "o": ["ligament", "tendon", "cartilage", "joint"],
-    "a": "B"
-  }
-],
-  "Account": [
-  {
-    "q": "Accounting is the process of",
-    "o": [
-      "recording, classifying and summarizing financial transactions",
-      "selling goods",
-      "buying goods",
-      "producing goods"
-    ],
-    "a": "A"
-  },
-  {
-    "q": "The book of original entry is",
-    "o": ["Ledger", "Journal", "Trial balance", "Cash account"],
-    "a": "B"
-  },
-  {
-    "q": "Assets are",
-    "o": [
-      "things owned by a business",
-      "debts owed",
-      "expenses",
-      "losses"
-    ],
-    "a": "A"
-  },
-  {
-    "q": "Liabilities are",
-    "o": [
-      "debts owed by the business",
-      "assets owned",
-      "income",
-      "expenses"
-    ],
-    "a": "A"
-  },
-  {
-    "q": "The double entry principle states that",
-    "o": [
-      "every transaction affects two accounts",
-      "only one account is involved",
-      "cash must be involved",
-      "profit must occur"
-    ],
-    "a": "A"
-  },
-  {
-    "q": "The cash book records",
-    "o": [
-      "cash and bank transactions",
-      "credit sales",
-      "credit purchases",
-      "expenses only"
-    ],
-    "a": "A"
-  },
-  {
-    "q": "Revenue is",
-    "o": [
-      "income earned",
-      "capital invested",
-      "expenses incurred",
-      "loss made"
-    ],
-    "a": "A"
-  },
-  {
-    "q": "The trial balance is used to",
-    "o": [
-      "check arithmetical accuracy",
-      "prepare cash book",
-      "record transactions",
-      "calculate profit"
-    ],
-    "a": "A"
-  },
-  {
-    "q": "Capital refers to",
-    "o": [
-      "owner’s investment",
-      "profit",
-      "expenses",
-      "liabilities"
-    ],
-    "a": "A"
-  },
-  {
-    "q": "The balance sheet shows",
-    "o": [
-      "financial position",
-      "income and expenses",
-      "cash flow",
-      "sales only"
-    ],
-    "a": "A"
-  },
-  {
-    "q": "Debit increases",
-    "o": [
-      "assets",
-      "liabilities",
-      "income",
-      "capital"
-    ],
-    "a": "A"
-  },
-  {
-    "q": "Credit increases",
-    "o": [
-      "liabilities",
-      "expenses",
-      "assets",
-      "drawings"
-    ],
-    "a": "A"
-  },
-  {
-    "q": "Drawings reduce",
-    "o": ["capital", "assets", "liabilities", "income"],
-    "a": "A"
-  },
-  {
-    "q": "The ledger is",
-    "o": [
-      "the principal book of accounts",
-      "a book of cash",
-      "a book of invoices",
-      "a journal"
-    ],
-    "a": "A"
-  },
-  {
-    "q": "Depreciation is charged on",
-    "o": ["fixed assets", "current assets", "liabilities", "income"],
-    "a": "A"
-  },
-  {
-    "q": "Profit is calculated as",
-    "o": [
-      "income minus expenses",
-      "expenses minus income",
-      "assets minus liabilities",
-      "capital minus drawings"
-    ],
-    "a": "A"
-  },
-  {
-    "q": "Purchases account records",
-    "o": [
-      "goods bought",
-      "goods sold",
-      "expenses",
-      "income"
-    ],
-    "a": "A"
-  },
-  {
-    "q": "Sales account records",
-    "o": [
-      "goods sold",
-      "goods bought",
-      "expenses",
-      "assets"
-    ],
-    "a": "A"
-  },
-  {
-    "q": "The matching concept matches",
-    "o": [
-      "income with expenses",
-      "assets with liabilities",
-      "cash with profit",
-      "capital with drawings"
-    ],
-    "a": "A"
-  },
-  {
-    "q": "Bad debt is a",
-    "o": ["loss", "profit", "asset", "liability"],
-    "a": "A"
-  }
-],
-  "Commerce": [
-  {
-    "q": "Commerce is concerned with",
-    "o": [
-      "production only",
-      "distribution and exchange of goods",
-      "manufacturing",
-      "extraction of raw materials"
-    ],
-    "a": "B"
-  },
-  {
-    "q": "Trade is divided into",
-    "o": [
-      "home and foreign trade",
-      "retail and wholesale",
-      "import and export",
-      "all of the above"
-    ],
-    "a": "D"
-  },
-  {
-    "q": "Buying goods in small quantities for resale is",
-    "o": ["Wholesale", "Retail", "Trade", "Commerce"],
-    "a": "B"
-  },
-  {
-    "q": "Insurance helps to",
-    "o": [
-      "prevent loss",
-      "reduce risk",
-      "compensate loss",
-      "eliminate risk"
-    ],
-    "a": "C"
-  },
-  {
-    "q": "Which of these is an aid to trade?",
-    "o": ["Banking", "Mining", "Farming", "Fishing"],
-    "a": "A"
-  },
-  {
-    "q": "A cheque is drawn on a",
-    "o": ["Post office", "Insurance firm", "Bank", "Warehouse"],
-    "a": "C"
-  },
-  {
-    "q": "Trade between two countries is",
-    "o": ["Home trade", "Retail trade", "Foreign trade", "Internal trade"],
-    "a": "C"
-  },
-  {
-    "q": "A retailer sells goods directly to the",
-    "o": ["Manufacturer", "Wholesaler", "Consumer", "Importer"],
-    "a": "C"
-  },
-  {
-    "q": "Transportation helps to overcome",
-    "o": ["time", "place", "risk", "ownership"],
-    "a": "B"
-  },
-  {
-    "q": "Advertising helps to",
-    "o": [
-      "produce goods",
-      "create awareness",
-      "store goods",
-      "transport goods"
-    ],
-    "a": "B"
-  },
-  {
-    "q": "A bill of exchange is a",
-    "o": [
-      "credit instrument",
-      "receipt",
-      "invoice",
-      "cheque"
-    ],
-    "a": "A"
-  },
-  {
-    "q": "The document used in overseas trade is",
-    "o": ["Invoice", "Waybill", "Bill of lading", "Receipt"],
-    "a": "C"
-  },
-  {
-    "q": "Warehousing helps to",
-    "o": [
-      "store goods",
-      "increase demand",
-      "reduce production",
-      "advertise goods"
-    ],
-    "a": "A"
-  },
-  {
-    "q": "An entrepreneur is one who",
-    "o": [
-      "bears risk",
-      "provides labour",
-      "consumes goods",
-      "keeps records"
-    ],
-    "a": "A"
-  },
-  {
-    "q": "Which is a function of a bank?",
-    "o": ["Manufacturing", "Accepting deposits", "Mining", "Trading"],
-    "a": "B"
-  },
-  {
-    "q": "Import trade involves",
-    "o": [
-      "selling goods abroad",
-      "buying goods from abroad",
-      "local trade",
-      "home trade"
-    ],
-    "a": "B"
-  },
-  {
-    "q": "The act of selling goods abroad is",
-    "o": ["Import", "Export", "Retail", "Wholesale"],
-    "a": "B"
-  },
-  {
-    "q": "Commerce excludes",
-    "o": ["Trade", "Transportation", "Production", "Insurance"],
-    "a": "C"
-  },
-  {
-    "q": "Ownership of goods changes in",
-    "o": ["Trade", "Transportation", "Warehousing", "Advertising"],
-    "a": "A"
-  },
-  {
-    "q": "Which occupation involves exchange?",
-    "o": ["Trade", "Mining", "Fishing", "Manufacturing"],
-    "a": "A"
-  }
-],
+  
+
+
+
+
   "Economics": [
-  {
-    "q": "Economics is the study of",
-    "o": [
-      "wealth",
-      "scarcity and choice",
-      "money only",
-      "production only"
-    ],
-    "a": "B"
-  },
-  {
-    "q": "Human wants are",
-    "o": ["limited", "fixed", "unlimited", "seasonal"],
-    "a": "C"
-  },
-  {
-    "q": "Factors of production include",
-    "o": [
-      "land, labour, capital and entrepreneur",
-      "money and machines",
-      "raw materials only",
-      "capital only"
-    ],
-    "a": "A"
-  },
-  {
-    "q": "Opportunity cost is the",
-    "o": [
-      "cost of production",
-      "next best alternative forgone",
-      "total cost",
-      "money spent"
-    ],
-    "a": "B"
-  },
-  {
-    "q": "Demand refers to",
-    "o": [
-      "desire backed by ability to pay",
-      "want",
-      "need",
-      "price"
-    ],
-    "a": "A"
-  },
-  {
-    "q": "Law of demand states that",
-    "o": [
-      "price and quantity demanded are inversely related",
-      "price and demand rise together",
-      "price is constant",
-      "demand is fixed"
-    ],
-    "a": "A"
-  },
-  {
-    "q": "Supply refers to",
-    "o": [
-      "quantity producers are willing to offer",
-      "goods demanded",
-      "market price",
-      "consumer choice"
-    ],
-    "a": "A"
-  },
-  {
-    "q": "Inflation means",
-    "o": [
-      "general rise in prices",
-      "fall in prices",
-      "stable prices",
-      "increase in wages"
-    ],
-    "a": "A"
-  },
-  {
-    "q": "Deflation refers to",
-    "o": [
-      "fall in general price level",
-      "rise in price",
-      "shortage of goods",
-      "excess demand"
-    ],
-    "a": "A"
-  },
-  {
-    "q": "Money serves as a",
-    "o": [
-      "medium of exchange",
-      "unit of labour",
-      "factor of production",
-      "raw material"
-    ],
-    "a": "A"
-  },
-  {
-    "q": "Which is a function of money?",
-    "o": [
-      "store of value",
-      "production",
-      "consumption",
-      "distribution"
-    ],
-    "a": "A"
-  },
-  {
-    "q": "Population refers to",
-    "o": [
-      "number of people in a country",
-      "working class",
-      "children only",
-      "labour force"
-    ],
-    "a": "A"
-  },
-  {
-    "q": "Labour means",
-    "o": [
-      "human effort",
-      "machines",
-      "raw materials",
-      "capital"
-    ],
-    "a": "A"
-  },
-  {
-    "q": "Capital refers to",
-    "o": [
-      "man-made productive assets",
-      "money only",
-      "labour",
-      "land"
-    ],
-    "a": "A"
-  },
-  {
-    "q": "Entrepreneur combines",
-    "o": [
-      "factors of production",
-      "capital only",
-      "labour only",
-      "money"
-    ],
-    "a": "A"
-  },
-  {
-    "q": "Production is the creation of",
-    "o": [
-      "goods and services",
-      "money",
-      "demand",
-      "wants"
-    ],
-    "a": "A"
-  },
-  {
-    "q": "Scarcity exists because",
-    "o": [
-      "resources are limited",
-      "wants are limited",
-      "prices are high",
-      "money is scarce"
-    ],
-    "a": "A"
-  },
-  {
-    "q": "Division of labour leads to",
-    "o": [
-      "increased efficiency",
-      "unemployment",
-      "waste",
-      "inflation"
-    ],
-    "a": "A"
-  },
-  {
-    "q": "A market is a place where",
-    "o": [
-      "buyers and sellers meet",
-      "goods are produced",
-      "money is printed",
-      "prices are fixed"
-    ],
-    "a": "A"
-  },
-  {
-    "q": "Economic growth refers to",
-    "o": [
-      "increase in output",
-      "increase in population",
-      "rise in prices",
-      "rise in wages"
-    ],
-    "a": "A"
-  }
-],
+    { q: "Economics is primarily concerned with the study of", o: ["Wealth creation", "Unlimited resources", "Choice under conditions of scarcity", "Distribution of money"], a: "C" },
+    { q: "The basic economic problem of society is", o: ["Poverty", "Inflation", "Scarcity", "Unemployment"], a: "C" },
+    { q: "Demand for a commodity is effective only when it is backed by", o: ["Desire", "Taste", "Purchasing power", "Price"], a: "C" },
+    { q: "The law of demand assumes that", o: ["Income changes", "Taste changes", "Other factors remain constant", "Supply changes"], a: "C" },
+    { q: "Which of the following will cause a movement along the demand curve?", o: ["Change in income", "Change in price of the commodity", "Change in population", "Change in taste"], a: "B" },
+    { q: "A rightward shift of the demand curve may be caused by", o: ["Increase in price", "Fall in consumer income", "Increase in population", "Fall in prices of substitutes"], a: "C" },
+    { q: "Supply of a commodity refers to the", o: ["Quantity available for consumption", "Total stock of goods", "Quantity offered for sale at various prices", "Quantity demanded"], a: "C" },
+    { q: "The law of supply states that, other things being equal,", o: ["Supply falls as price rises", "Supply rises as price falls", "Supply rises as price rises", "Supply remains constant"], a: "C" },
+    { q: "A decrease in cost of raw materials will lead to", o: ["Decrease in supply", "Increase in supply", "Decrease in demand", "Increase in price"], a: "B" },
+    { q: "Market equilibrium occurs when", o: ["Demand exceeds supply", "Supply exceeds demand", "Demand equals supply", "Price is fixed by government"], a: "C" },
+    { q: "Excess supply in the market will result in", o: ["Rise in price", "Fall in price", "Increase in demand", "Decrease in supply"], a: "B" },
+    { q: "Price elasticity of demand measures the", o: ["Degree of scarcity", "Responsiveness of quantity demanded to price change", "Relationship between income and demand", "Change in supply"], a: "B" },
+    { q: "Demand is perfectly inelastic when", o: ["Price changes but quantity demanded remains constant", "Quantity demanded changes proportionately", "Demand curve slopes downward", "Price remains constant"], a: "A" },
+    { q: "Which commodity is likely to have elastic demand?", o: ["Salt", "Insulin", "Petrol", "Luxury cars"], a: "D" },
+    { q: "An increase in income will reduce demand for", o: ["Normal goods", "Substitute goods", "Inferior goods", "Complementary goods"], a: "C" },
+    { q: "Opportunity cost is the", o: ["Cost of production", "Monetary cost", "Value of the next best alternative forgone", "Total expenses"], a: "C" },
+    { q: "Reward for capital is", o: ["Wages", "Rent", "Interest", "Profit"], a: "C" },
+    { q: "Factor of production with highest risk", o: ["Land", "Labour", "Capital", "Entrepreneur"], a: "D" },
+    { q: "Resources in capitalism are owned by", o: ["Government", "Private individuals", "Traditional rulers", "Cooperatives"], a: "B" },
+    { q: "Price control below equilibrium causes", o: ["Surplus", "Equilibrium", "Shortage", "Inflation"], a: "C" }
+  ],
+
+  "English": [
+    { q: "I was not aware _____ the new policy.", o: ["with", "for", "of", "about"], a: "C" },
+    { q: "The manager was angry _____ the workers’ lateness.", o: ["for", "on", "about", "at"], a: "C" },
+    { q: "The word nearest in meaning to reluctant is", o: ["Eager", "Unwilling", "Ready", "Proud"], a: "B" },
+    { q: "Opposite of generous is", o: ["Kind", "Rich", "Stingy", "Cheerful"], a: "C" },
+    { q: "Neither the teacher nor the students _____ present.", o: ["was", "has", "were", "is"], a: "C" },
+    { q: "The judge _____ the accused.", o: ["convicted", "accused", "acquitted", "sentenced"], a: "C" },
+    { q: "To beat about the bush means", o: ["clear bush", "speak rudely", "avoid main point", "speak loudly"], a: "C" },
+    { q: "She was praised for her _____ contribution.", o: ["miserly", "valuable", "trivial", "useless"], a: "B" },
+    { q: "He speaks _____ than his brother.", o: ["fluent", "more fluent", "more fluently", "most fluent"], a: "C" },
+    { q: "If he _____ earlier, he would not miss the bus.", o: ["leaves", "has left", "had left", "left"], a: "C" },
+    { q: "“What a beautiful day!” is", o: ["Declarative", "Interrogative", "Imperative", "Exclamatory"], a: "D" },
+    { q: "Different vowel sound is in", o: ["Seat", "Beat", "Meat", "Bread"], a: "D" },
+    { q: "Different consonant sound is", o: ["Church", "Teacher", "Match", "Machine"], a: "D" },
+    { q: "Key _____ success.", o: ["for", "on", "to", "with"], a: "C" },
+    { q: "Nearest meaning of brief", o: ["Long", "Short", "Wide", "Slow"], a: "B" },
+    { q: "Opposite of ancient", o: ["Old", "Past", "Modern", "Antique"], a: "C" },
+    { q: "Author of Things Fall Apart", o: ["Wole Soyinka", "Ngugi", "Chinua Achebe", "Ben Okri"], a: "C" },
+    { q: "A poem that tells a story", o: ["Lyric", "Ode", "Narrative poem", "Elegy"], a: "C" },
+    { q: "The child is afraid _____ the dark.", o: ["with", "at", "of", "from"], a: "C" },
+    { q: "Correct spelling", o: ["Occassion", "Ocassion", "Occasion", "Occation"], a: "C" }
+  ],
+
+  "Accounting": [
+    { q: "Purpose of final accounts is to", o: ["detect fraud", "calculate tax", "determine profit or loss", "record transactions"], a: "C" },
+    { q: "Which is a real account?", o: ["Sales", "Capital", "Land and buildings", "Purchases"], a: "C" },
+    { q: "Double entry principle means", o: ["two persons", "two effects", "every debit has credit", "cash involved"], a: "C" },
+    { q: "Goods returned by customers are recorded in", o: ["Purchases journal", "Returns outward", "Returns inward", "Sales journal"], a: "C" },
+    { q: "Deducted from gross profit to get net profit", o: ["Sales", "Purchases", "Expenses", "Opening stock"], a: "C" },
+    { q: "Debit balance in cash book shows", o: ["cash owed", "cash in hand", "overdraft", "discount"], a: "B" },
+    { q: "Account for discount allowed", o: ["Discount received", "Discount allowed", "Cash", "Trading"], a: "B" },
+    { q: "Error affecting trial balance", o: ["Omission", "Principle", "Compensating", "Single entry"], a: "D" },
+    { q: "Depreciation is", o: ["increase value", "reduction in value", "loss by theft", "cost"], a: "B" },
+    { q: "Current assets minus liabilities is", o: ["Capital", "Working expenses", "Working capital", "Fixed capital"], a: "C" },
+    { q: "A current asset is", o: ["Machinery", "Motor vehicle", "Debtors", "Land"], a: "C" },
+    { q: "Shows financial position", o: ["Trading account", "P&L", "Balance sheet", "Cash book"], a: "C" },
+    { q: "Bad debts written off go to", o: ["Debtors", "Cash", "P&L", "Sales"], a: "C" },
+    { q: "Capital means", o: ["Total assets", "Total liabilities", "Owner’s investment", "Profit"], a: "C" },
+    { q: "Goods for resale recorded in", o: ["Journal", "Purchases", "Sales", "Returns"], a: "B" },
+    { q: "Trial balance checks", o: ["profit", "all errors", "arithmetical accuracy", "balance sheet"], a: "C" },
+    { q: "A nominal account", o: ["Cash", "Furniture", "Capital", "Rent"], a: "D" },
+    { q: "Owner withdraws cash is", o: ["Capital", "Drawings", "Purchases", "Expenses"], a: "B" },
+    { q: "Debit side of cash book records", o: ["Cash paid", "Discount allowed", "Cash received", "Credit sales"], a: "C" },
+    { q: "Increase in provision for bad debts will", o: ["increase profit", "no effect", "reduce profit", "increase asset"], a: "C" }
+  ],
+
+  "Commerce": [
+    { q: "Commerce is concerned with", o: ["Production", "Exchange and distribution", "Consumption", "Extraction"], a: "B" },
+    { q: "Activity that aids trade directly", o: ["Manufacturing", "Mining", "Banking", "Farming"], a: "C" },
+    { q: "Trade is classified into", o: ["Wholesale & retail", "Import & export", "Home & foreign", "Internal & external"], a: "D" },
+    { q: "Buying in bulk, selling small is", o: ["Retail", "Foreign", "Wholesale", "Entrepot"], a: "C" },
+    { q: "Function of wholesaler", o: ["Breaking bulk", "Buying from consumers", "Loans", "Advertising"], a: "A" },
+    { q: "Retail trade sells to", o: ["Manufacturers", "Large quantity", "Final consumers", "Wholesalers"], a: "C" },
+    { q: "Not a retail trade", o: ["Hawking", "Supermarket", "Chain store", "Warehouse"], a: "D" },
+    { q: "Import trade is", o: ["Local sale", "Buying from abroad", "Selling abroad", "Barter"], a: "B" },
+    { q: "Document for credit sales", o: ["Quotation", "Receipt", "Invoice", "Debit note"], a: "C" },
+    { q: "Goods returned document", o: ["Credit note", "Invoice", "Receipt", "Debit note"], a: "D" },
+    { q: "Main function of money", o: ["Store of value", "Unit of account", "Medium of exchange", "Deferred payment"], a: "C" },
+    { q: "Function of commercial bank", o: ["Issue currency", "Grant loans", "Print money", "Collect tax"], a: "B" },
+    { q: "Advertising aims to", o: ["Reduce price", "Discourage competition", "Increase sales", "Produce goods"], a: "C" },
+    { q: "Insurance involves", o: ["Saving", "Sharing risks", "Avoiding risks", "Eliminating loss"], a: "B" },
+    { q: "Not an insurable risk", o: ["Fire", "Theft", "Gambling", "Accident"], a: "C" },
+    { q: "Transportation aids by", o: ["Producing", "Financing", "Moving goods", "Storing"], a: "C" },
+    { q: "Consumer protection agency in Nigeria", o: ["CBN", "EFCC", "SON", "NDIC"], a: "C" },
+    { q: "Person who bears risk", o: ["Manager", "Shareholder", "Entrepreneur", "Clerk"], a: "C" },
+    { q: "External trade example", o: ["Retail", "Wholesale", "Import", "Home"], a: "C" },
+    { q: "Main objective of commerce", o: ["Produce goods", "Satisfy wants", "Make laws", "Employ workers"], a: "B" }
+  ],
+
+
+
+ 
   "Mathematics": [
   {
     "q": "What is the value of x in the equation 2<sup>x</sup> = 32?",
